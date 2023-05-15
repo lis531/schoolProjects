@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+        body{
+            font-family: "Inter", sans-serif;
+            margin: 0;
+        }
+        h1{
+            text-align: center;
+        }
+        .imageBig{
+            width: 60vh;
+            height: 60vh;
+            transition: ease-in-out 0.3s;
+            border-radius: 10px;
+        }
+        .imageContainer{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2%;
+            margin-top: 2vh;
+        }
+        .divv{
+            margin-top: 5vh;
+            margin-bottom: 5vh;
+            display: flex;
+            width: 100%;
+            height: 60vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        button{
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            border: 2px solid black;
+            transition: ease-in-out 0.5s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+        }
+        .image-1{
+            background-image: url("zdjecie1.jpg");
+        }
+        .image-2{
+            background-image: url("zdjecie2.jpg");
+        }
+        .image-3{
+            background-image: url("zdjecie3.jpg");
+        }
+        .image-4{
+            background-image: url("zdjecie4.jpg");
+        }
+        .image-5{
+            background-image: url("zdjecie5.jpg");
+        }
+        button:hover{
+            filter: saturate(3);
+            box-shadow: 10px 10px gray;
+        }
+    </style>
+</head>
+<body>
+    <h1>Galeria</h1>
+    <div class="imageContainer">
+        <button id="button1" class="image-1" title="Zdjęcie 1"></button>
+        <button id="button2" class="image-2" title="Zdjęcie 2"></button>
+        <button id="button3" class="image-3" title="Zdjęcie 3"></button>
+        <button id="button4" class="image-4" title="Zdjęcie 4"></button>
+        <button id="button5" class="image-5" title="Zdjęcie 5"></button>
+    </div>
+    <div class="divv">
+        <p id="par1"></p>
+        <img src="zdjecie1.jpg" alt="powiekszenie" id="imageBig" class="imageBig">
+    </div>
+
+    <script>
+        const par1 = document.getElementById("par1")
+        const imageBig = document.getElementById("imageBig")
+        const button1 = document.getElementById("button1")
+        const button2 = document.getElementById("button2")
+        const button3 = document.getElementById("button3")
+        const button4 = document.getElementById("button4")
+        const button5 = document.getElementById("button5")
+        
+        const changePhoto1 = () =>{
+            imageBig.src = "zdjecie1.jpg" 
+            par1.innerHTML = button1.title;
+        }
+        const changePhoto2 = () =>{
+            imageBig.src = "zdjecie1.jpg" 
+            par1.innerHTML = button1.title;
+        }
+        const changePhoto3 = () =>{
+            imageBig.src = "zdjecie1.jpg" 
+            par1.innerHTML = button1.title;
+        }
+        const changePhoto4 = () =>{
+            imageBig.src = "zdjecie1.jpg" 
+            par1.innerHTML = button1.title;
+        }
+        const changePhoto5 = () =>{
+            imageBig.src = "zdjecie1.jpg" 
+            par1.innerHTML = button1.title;
+        }
+        
+        button1.addEventListener("click", changePhoto1)
+        button2.addEventListener("click", changePhoto2)
+        button3.addEventListener("click", changePhoto3)
+        button4.addEventListener("click", changePhoto4)
+        button5.addEventListener("click", changePhoto5)
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styl.css" />
+    <title>Lista zakupów</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <img src="note.png" alt="" />
+        <h1>Lista zakupów</h1>
+      </header>
+      <form id="item-form" autocomplete="off">
+          <input type="text" class="form-input" id="itemInput" name="item" placeholder="Dodaj element"/>
+          <button type="submit" class="btn">
+            <i class="fa-solid fa-plus"></i> Dodaj element
+          </button>
+      </form>
+
+      <div class="filter">
+        <input type="text" class="form-input-filter" id="filter" placeholder="Filtruj"/>
+      </div>
+
+      <ul id="item-list" class="items">
+        <li>
+          Jabłka
+          <button class="remove-item btn-link text-red">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </li>
+        <li>
+          Pomarańcze
+          <button class="remove-item btn-link text-red">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </li>
+      </ul>
+
+      <button id="clear" class="btn-clear">Clear All</button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

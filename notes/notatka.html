@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body{
+            margin: 0;
+        }
+        #add{
+            border: none;
+            background-color: gray;
+            border-radius: 2rem;
+            font-size: 1.7rem;
+            width: 14vw;
+            height: 6vh;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        input{
+            width: 25vw;
+            height: 4vh;
+            font-size: 1.7rem;
+            border: solid black 0.15rem;
+            border-radius: 1rem;
+            font-family: inherit;
+        }
+        .main{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 7vh;
+            margin-top: 20vh;
+            margin-bottom: 5vh;
+        }
+        #notes{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5vw;
+        }
+        .delete{
+            border: none;
+            border-radius: 1rem;
+            background-color: gray;
+            width: 5vw;
+            height: 3vh;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .lineBetweenTop{
+            height: 0px;
+            width: 60%;
+            border: solid black 1px;
+            border-radius: 1rem;
+        }
+        .lineBetween{
+            height: 0px;
+            width: 40%;
+            border: solid black 1px;
+            border-radius: 1rem;
+            margin: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1>Notatki</h1>
+        <span class="lineBetweenTop"></span>
+        <input id="input">
+        <button id="add">Dodaj</button>
+    </div>
+    <div id="notes">
+
+    </div>
+    <script>
+        const add = document.getElementById("add")
+        let input = document.getElementById("input")
+        let notes = document.getElementById("notes")
+        let notesArray = JSON.parse(localStorage.getItem('notes')) || [];
+
+        const addNote = () => {
+            if (input.value.trim() === "") {
+              return;
+            }
+            let note = {
+              title: input.value.trim(),
+              date: new Date().toLocaleString("pl-PL"),
+            };
+            notesArray.push(note);
+            localStorage.setItem('notes', JSON.stringify(notesArray));
+            renderNotes();
+        };
+        const renderNotes = () => {
+            notes.innerHTML = "";
+            notesArray.forEach((note) => {
+                let container = document.createElement("div");
+                let date = document.createElement("p");
+                let button = document.createElement("button");
+                let h3 = document.createElement("h3");
+                let span = document.createElement("span");
+                h3.innerHTML = note.title;
+                date.innerHTML = note.date;
+                button.textContent = "Usuń";
+                button.classList.add("delete");
+                span.classList.add("lineBetween");
+                container.classList.add("container");
+                notes.append(container);
+                container.append(h3);
+                container.append(date);
+                container.append(button);
+                notes.append(span);
+                button.addEventListener("click", () => {
+                    container.style.display = "none";
+                    span.style.display = "none";
+                    notesArray = notesArray.filter((n) => n.title !== note.title);
+                    localStorage.setItem('notes', JSON.stringify(notesArray));
+                });
+            });
+        };
+        renderNotes();
+
+        add.addEventListener("click", addNote)
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html{
+            font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+            font-weight: 500;
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6vh;
+            padding: 0;
+            margin: 0;
+        }
+        div{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 8vw;
+            background-color: gray;
+            width: 100%;
+            filter: drop-shadow(0 4px 0.75rem gray);
+        }
+        button{
+            border-radius: 10px;
+            border: none;
+            background-color: rgb(175, 175, 175);
+            cursor: pointer;
+            width: 10vw;
+            height: 4vh;
+            box-shadow: 6px 6px 1px lightgray;
+        }
+        input{
+            border-radius: 10px;
+            border: none;
+            background-color: rgb(187, 187, 187);
+            width: 40vw;
+            height: 5vh;
+            box-shadow: 8px 8px 1px lightgray;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p id="czas"></p>
+        <h2>Szybkie pisanie</h2>
+        <p id="wynik"></p>
+    </div>
+    <form id="myForm">
+        <input type="text" id="input" placeholder="Wpisz tekst...">
+    </form>
+    <button id="btn1">Sprawdź</button>
+    <p id="par1"></p>
+    <p id="par2"></p>
+    <script>
+        let randomNumber = (Math.random()*10).toFixed(0)
+        const slowa = ["Ptak", "Drzewo", "Gwiazdy", "Magia", "Trawa", "Komputer", "Plecak", "Strona", "Gra", "Czarne", "Białe"]
+        const input = document.getElementById("input")
+        const myForm = document.getElementById("myForm")
+        let czas = document.getElementById("czas")
+        let iloscCzasu = 10;
+        czas.innerHTML = "Czas: " + iloscCzasu + "s";
+        const par1 = document.getElementById("par1")
+        const par2 = document.getElementById("par2")
+        const btn1 = document.getElementById("btn1")
+        let result = document.getElementById("wynik");
+        let wynik = 0;
+        
+        result.innerHTML = 'Wynik: ' + wynik;
+        par1.innerHTML = slowa[randomNumber];
+        const checkInput = () =>{
+            let wpisaneSlowo = input.value.trim().toLowerCase()
+            if(wpisaneSlowo === slowa[randomNumber].toLowerCase()){
+                wynik += 1;
+                iloscCzasu += 3;
+                czas.innerHTML = "Czas: " + iloscCzasu + "s";
+                result.innerHTML = 'Wynik: ' + wynik;
+                randomNumber = (Math.random()*10).toFixed(0)
+                par1.innerHTML = slowa[randomNumber];
+            }
+            myForm.reset();
+        }
+        let id;
+        const zmianaCzasu = () =>{
+            let wpisaneSlowo = input.value.trim().toLowerCase()
+            iloscCzasu--;
+            czas.innerHTML = "Czas: " + iloscCzasu + "s";
+            if(iloscCzasu <= 0){
+                clearInterval(id)
+                wynik -= 1;
+                iloscCzasu = 10;
+                result.innerHTML = 'Wynik: ' + wynik;
+                randomNumber = (Math.random()*10).toFixed(0)
+                par1.innerHTML = slowa[randomNumber];
+                id = setInterval(zmianaCzasu, 1000)
+            }
+        }
+        
+        id = setInterval(zmianaCzasu, 1000)
+        btn1.addEventListener("click", checkInput)
+    </script>
+</body>
+</html>
