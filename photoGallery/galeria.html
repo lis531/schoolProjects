@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Gallery</title>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
         body{
@@ -13,12 +13,15 @@
         }
         h1{
             text-align: center;
+            margin-top: 3vh;
+            margin-bottom: 4vh;
+            font-size: 2.2rem;
         }
         .imageBig{
             width: 60vh;
             height: 60vh;
             transition: ease-in-out 0.3s;
-            border-radius: 10px;
+            border-radius: 1rem;
         }
         .imageContainer{
             display: flex;
@@ -49,38 +52,39 @@
             background-size: cover;
         }
         .image-1{
-            background-image: url("zdjecie1.jpg");
+            background-image: url("https://picsum.photos/1000/1000?random=1");
         }
         .image-2{
-            background-image: url("zdjecie2.jpg");
+            background-image: url("https://picsum.photos/1000/1000?random=2");
         }
         .image-3{
-            background-image: url("zdjecie3.jpg");
+            background-image: url("https://picsum.photos/1000/1000?random=3");
         }
         .image-4{
-            background-image: url("zdjecie4.jpg");
+            background-image: url("https://picsum.photos/1000/1000?random=4");
         }
         .image-5{
-            background-image: url("zdjecie5.jpg");
+            background-image: url("https://picsum.photos/1000/1000?random=5");
         }
         button:hover{
             filter: saturate(3);
             box-shadow: 10px 10px gray;
+            scale: 1.15;
         }
     </style>
 </head>
 <body>
-    <h1>Galeria</h1>
+    <h1>Gallery</h1>
     <div class="imageContainer">
-        <button id="button1" class="image-1" title="Zdjęcie 1"></button>
-        <button id="button2" class="image-2" title="Zdjęcie 2"></button>
-        <button id="button3" class="image-3" title="Zdjęcie 3"></button>
-        <button id="button4" class="image-4" title="Zdjęcie 4"></button>
-        <button id="button5" class="image-5" title="Zdjęcie 5"></button>
+        <button id="button1" class="image-1" title="Photo 1"></button>
+        <button id="button2" class="image-2" title="Photo 2"></button>
+        <button id="button3" class="image-3" title="Photo 3"></button>
+        <button id="button4" class="image-4" title="Photo 4"></button>
+        <button id="button5" class="image-5" title="Photo 5"></button>
     </div>
     <div class="divv">
-        <p id="par1"></p>
-        <img src="zdjecie1.jpg" alt="powiekszenie" id="imageBig" class="imageBig">
+        <h2 id="par1"></h2>
+        <img src="https://picsum.photos/1000/1000?random=1" alt="powiekszenie" id="imageBig" class="imageBig">
     </div>
 
     <script>
@@ -93,24 +97,24 @@
         const button5 = document.getElementById("button5")
         
         const changePhoto1 = () =>{
-            imageBig.src = "zdjecie1.jpg" 
+            imageBig.src = "https://picsum.photos/1000/1000?random=1" 
             par1.innerHTML = button1.title;
         }
         const changePhoto2 = () =>{
-            imageBig.src = "zdjecie1.jpg" 
-            par1.innerHTML = button1.title;
+            imageBig.src = "https://picsum.photos/1000/1000?random=2" 
+            par1.innerHTML = button2.title;
         }
         const changePhoto3 = () =>{
-            imageBig.src = "zdjecie1.jpg" 
-            par1.innerHTML = button1.title;
+            imageBig.src = "https://picsum.photos/1000/1000?random=3" 
+            par1.innerHTML = button3.title;
         }
         const changePhoto4 = () =>{
-            imageBig.src = "zdjecie1.jpg" 
-            par1.innerHTML = button1.title;
+            imageBig.src = "https://picsum.photos/1000/1000?random=4" 
+            par1.innerHTML = button4.title;
         }
         const changePhoto5 = () =>{
-            imageBig.src = "zdjecie1.jpg" 
-            par1.innerHTML = button1.title;
+            imageBig.src = "https://picsum.photos/1000/1000?random=5"
+            par1.innerHTML = button5.title;
         }
         
         button1.addEventListener("click", changePhoto1)
