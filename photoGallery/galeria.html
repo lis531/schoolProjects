@@ -83,7 +83,7 @@
         <button id="button5" class="image-5" title="Photo 5"></button>
     </div>
     <div class="divv">
-        <h2 id="par1"></h2>
+        <h2 id="par1">Photo 1</h2>
         <img src="https://picsum.photos/1000/1000?random=1" alt="powiekszenie" id="imageBig" class="imageBig">
     </div>
 
@@ -97,23 +97,28 @@
         const button5 = document.getElementById("button5")
         
         const changePhoto1 = () =>{
-            imageBig.src = "https://picsum.photos/1000/1000?random=1" 
+            imageBig.src = "https://picsum.photos/1000/1000?random=1";
+            imageBig.alt = button1.title;
             par1.innerHTML = button1.title;
         }
         const changePhoto2 = () =>{
-            imageBig.src = "https://picsum.photos/1000/1000?random=2" 
+            imageBig.src = "https://picsum.photos/1000/1000?random=2";
+            imageBig.alt = button1.title;
             par1.innerHTML = button2.title;
         }
         const changePhoto3 = () =>{
-            imageBig.src = "https://picsum.photos/1000/1000?random=3" 
+            imageBig.src = "https://picsum.photos/1000/1000?random=3";
+            imageBig.alt = button1.title;
             par1.innerHTML = button3.title;
         }
         const changePhoto4 = () =>{
-            imageBig.src = "https://picsum.photos/1000/1000?random=4" 
+            imageBig.src = "https://picsum.photos/1000/1000?random=4";
+            imageBig.alt = button1.title;
             par1.innerHTML = button4.title;
         }
         const changePhoto5 = () =>{
-            imageBig.src = "https://picsum.photos/1000/1000?random=5"
+            imageBig.src = "https://picsum.photos/1000/1000?random=5";
+            imageBig.alt = button1.title;
             par1.innerHTML = button5.title;
         }
         
