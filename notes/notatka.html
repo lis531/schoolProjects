@@ -22,13 +22,14 @@
             cursor: pointer;
             font-family: inherit;
         }
-        input{
+        #input{
             width: 25vw;
             height: 4vh;
             font-size: 1.7rem;
             border: solid black 0.15rem;
             border-radius: 1rem;
             font-family: inherit;
+            text-indent: 1vw;
         }
         .main{
             display: flex;
@@ -50,6 +51,8 @@
             justify-content: center;
             align-items: center;
             gap: 5vw;
+            border-bottom: 2px solid black;
+            padding-bottom: 2vh;
         }
         .delete{
             border: none;
@@ -61,26 +64,22 @@
             font-size: 1rem;
             cursor: pointer;
         }
-        .lineBetweenTop{
-            height: 0px;
+        h1{
+            border-bottom: 2px solid black;
+            padding-bottom: 8vh;
             width: 60%;
-            border: solid black 1px;
-            border-radius: 1rem;
+            text-align: center;
         }
-        .lineBetween{
-            height: 0px;
-            width: 40%;
-            border: solid black 1px;
-            border-radius: 1rem;
-            margin: 0.8rem;
+        h3{
+            overflow-wrap: break-word;
+            max-width: 35vw;
         }
     </style>
 </head>
 <body>
     <div class="main">
         <h1>Notatki</h1>
-        <span class="lineBetweenTop"></span>
-        <input id="input">
+        <textarea id="input">
         <button id="add">Dodaj</button>
     </div>
     <div id="notes">
@@ -111,12 +110,10 @@
                 let date = document.createElement("p");
                 let button = document.createElement("button");
                 let h3 = document.createElement("h3");
-                let span = document.createElement("span");
                 h3.innerHTML = note.title;
                 date.innerHTML = note.date;
                 button.textContent = "Usuń";
                 button.classList.add("delete");
-                span.classList.add("lineBetween");
                 container.classList.add("container");
                 notes.append(container);
                 container.append(h3);
