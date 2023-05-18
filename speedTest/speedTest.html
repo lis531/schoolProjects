@@ -19,7 +19,7 @@
             padding: 0;
             margin: 0;
         }
-        div{
+        .top{
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -58,17 +58,22 @@
     </style>
 </head>
 <body>
-    <div>
+<button id="startBtn">Start</button>
+    <div class="top">
         <p id="czas"></p>
         <h2>Szybkie pisanie</h2>
         <p id="wynik"></p>
     </div>
+<div>
     <h1 id="par1"></h1>
     <form id="myForm">
         <input type="text" id="input" placeholder="Wpisz tekst...">
     </form>
     <button id="btn1">Sprawdź</button>
+</div>
     <script>
+const startBtn = document.getElementById("startBtn")
+const start = () =>{
         let randomNumber = (Math.random()*10).toFixed(0)
         const slowa = ["Ptak", "Drzewo", "Gwiazdy", "Magia", "Trawa", "Komputer", "Plecak", "Strona", "Gra", "Czarne", "Białe"]
         const input = document.getElementById("input")
@@ -126,7 +131,8 @@
             if(e.keyCode === 13){
                 checkInput();
             }
-        })
+        })}
+startBtn.addEventListener("click", start)
     </script>
 </body>
 </html>
