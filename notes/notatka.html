@@ -29,7 +29,7 @@
             border: solid black 0.15rem;
             border-radius: 1rem;
             font-family: inherit;
-            text-indent: 1vw;
+            padding: 1rem;
         }
         .main{
             display: flex;
@@ -85,8 +85,6 @@
     <div id="notes">
 
     </div>
-<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-<script>eruda.init();</script>
     <script>
         const add = document.getElementById("add")
         let input = document.getElementById("input")
@@ -123,7 +121,6 @@
                 container.append(button);
                 button.addEventListener("click", () => {
                     container.style.display = "none";
-                    span.style.display = "none";
                     notesArray = notesArray.filter((n) => n.title !== note.title);
                     localStorage.setItem('notes', JSON.stringify(notesArray));
                 });
