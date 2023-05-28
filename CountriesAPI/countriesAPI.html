@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap');
+        html{
+            font-family: 'Titillium Web', sans-serif;
+        }
+        .country{
+            width: 25rem;
+            height: 25rem;
+            border: 1px solid black;
+            border-radius: 1rem;
+            margin: 2rem;
+            text-align: center;
+            transition: ease-in-out 0.3s;
+            background-color: rgb(251, 251, 251);
+            cursor: pointer;
+        }
+        .country:hover{
+            scale: 1.15;
+        }
+        #list{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        img{
+            width: 15rem;
+            height: 10rem;
+        }
+        .content{
+            height: 10rem;
+        }
+        .buttons{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5vw;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        .line{
+            width: 50%;
+            border-bottom: 2px solid rgb(197, 197, 197);
+            border-radius: 1rem;
+        }
+        .button{
+            border: 2px solid black;
+            width: 6rem;
+            height: 3rem;
+            font-size: 1.3rem;
+            border-radius: 1rem;
+            background-color: white;
+            transition: ease-in-out 0.3s;
+            cursor: pointer;
+        }
+        .button:hover{
+            background-color: black;
+            color: white;
+        }
+        .top{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .modalBackground{
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #00000080;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal{
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            text-align: center;
+            flex-direction: column;
+            position: fixed;
+            width: 25rem;
+            height: auto;
+            z-index: 10;
+            border: 1px solid black;
+            border-radius: 1rem;
+            background-color: white;
+            padding: 2rem;
+        }
+        .modal h1, .modal h2, .modal h3{
+            width: 80%;
+            margin: 0;
+            margin-bottom: 0.8rem;
+        }
+        #btn{
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: transparent;
+            font-size: 2rem;
+            cursor: pointer;
+            border: none;
+        }
+        input{
+            border: black 1px solid;
+            border-radius: 1rem;
+            padding: 0.5rem;
+        }
+        b{
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="top">
+        <h1>Countries API</h1>
+        <div class="line"></div>
+        <div class="buttons">
+            <button class="button">All</button>
+            <button class="button">Oceania</button>
+            <button class="button">Asia</button>
+            <button class="button">Europe</button>
+            <button class="button">America</button>
+            <button class="button">Africa</button>
+            <input type="text" id="search" placeholder="Search">
+        </div>
+    </div>
+    <div class="modalBackground" id="modal"></div>
+    <div id="list">
+    </div>
+    <script>
+        const buttons = document.querySelectorAll("button")
+        let link = "oceania";
+        const list = document.getElementById("list")
+        const modal = document.getElementById("modal")
+        modal.style.display = "none"
+        const openModal = (country) =>{
+            modal.style.display = "flex";
+            modal.innerHTML = `
+                <div class="modal">
+                    <h1>${country.name.official}</h1>
+                    <h2>Capital: <b>${country.capital}</b></h2>
+                    <h3>Common name: <b>${country.name.common}</b></h3>
+                    <h3>Official language: <b>${Object.keys(country.languages).join(", ")}</b></h3>
+                    <h3>Region: <b>${country.region}</b></h3>
+                    <h3>Subregion: <b>${country.subregion}</b></h3>
+                    <h3>Population: <b>${country.population}</b></h3>
+                    <h3>Area: <b>${country.area} km<sup>2</sup></b></h3>
+                    <h3>Currency: <b>${country.currencies[Object.keys(country.currencies)[0]].name} ${country.currencies[Object.keys(country.currencies)[0]].symbol}</b></h3>
+                    <h3>Timezones: <b>${Array.isArray(country.timezones) ? country.timezones.join(', ') : country.timezones}</b></h3>
+                    <h3>Top-level domain: <b>${country.tld.join(', ')}</b></h3>
+                    <h3>Maps: <a href="${country.maps.googleMaps}"><b>Open maps</b></a></h3>
+                    <button id="btn">X</button>
+                </div>
+            `
+            const btn = document.getElementById("btn")
+            document.body.style.overflow = "hidden"
+            btn.addEventListener("click", () => {modal.style.display = "none"
+            document.body.style.overflow = "visible"
+            })
+        }
+
+        async function getData(reset){
+            const response = await fetch("https://restcountries.com/v3.1/region/" + link)
+            const countries = await response.json()
+            if(reset){
+                list.innerHTML = "";
+            }
+            countries.forEach(country => {
+                const listElement = document.createElement("div");
+                listElement.classList.add("country")
+
+                listElement.addEventListener("click", () => {openModal(country)})
+
+                listElement.innerHTML = `
+                <div class="content"><h1><span>${country.name.common}</span></h1>
+                <h2>Capital: <span>${country.capital}</span></h2></div>
+                <img src="${country.flags.svg}"></svg>
+                `;
+
+                list.append(listElement)
+            });
+        }
+        const all = ['oceania', 'asia', 'europe', 'america', 'africa']
+        const changeLink = (val) =>{
+            if(val == "All"){
+                list.innerHTML = "";
+                for(let i = 0; i < 5; i++){
+                    link = all[i];
+                    getData(false)
+                }
+            }
+            else if(val == "Oceania"){
+                link = all[0]
+                getData(true)
+            }
+            else if(val == "Asia"){
+                link = all[1]
+                getData(true)
+            }
+            else if(val == "Europe"){
+                link = all[2]
+                getData(true)
+            }
+            else if(val == "America"){
+                link = all[3]
+                getData(true)
+            }
+            else if(val == "Africa"){
+                link = all[4]
+                getData(true)
+            }
+            else{
+                console.log("coś jest źle")
+            }
+        }
+        changeLink("All")
+        const search = document.getElementById("search")
+        search.addEventListener("input", () => {
+            const countries = document.querySelectorAll(".country")
+            countries.forEach(country => {
+                spans = country.getElementsByTagName("span")
+                if(spans[0].innerText.toLowerCase().includes(search.value.toLowerCase()) || spans[1].innerText.toLowerCase().includes(search.value.toLowerCase())){
+                    country.style.display = "block"
+                }
+                else{
+                    country.style.display = "none"
+                }
+            });
+        })
+        buttons.forEach(button => {
+            button.addEventListener("click", () =>{
+                changeLink(button.innerText)})
+        });
+    </script>
+</body>
+</html>
