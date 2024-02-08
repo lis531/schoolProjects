@@ -78,9 +78,9 @@
 </head>
 <body>
     <div class="main">
-        <h1>Notatki</h1>
+        <h1>Notes</h1>
         <textarea id="input"></textarea>
-        <button id="add">Dodaj</button>
+        <button id="add">Add</button>
     </div>
     <div id="notes">
 
@@ -112,7 +112,7 @@
                 let h3 = document.createElement("h3");
                 h3.innerHTML = note.title;
                 date.innerHTML = note.date;
-                button.textContent = "Usuń";
+                button.textContent = "Delete";
                 button.classList.add("delete");
                 container.classList.add("container");
                 notes.append(container);
