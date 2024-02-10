@@ -1,15 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
 
-*,
-*::before,
-*::after {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: #333;
@@ -28,13 +26,26 @@ header h1 {
   margin-left: 10px;
 }
 
+.filter{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+}
+
+.filter-icon{
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
 .container {
   max-width: 500px;
   margin: 30px auto;
   padding: 20px;
 }
 
-/* Form & Input */
 .form-input {
   width: 100%;
   font-size: 18px;
@@ -57,7 +68,6 @@ header h1 {
   outline: none;
 }
 
-/* Buttons */
 .btn {
   background-color: #333;
   color: #fff;
@@ -100,8 +110,6 @@ header h1 {
   color: red;
 }
 
-/* Items */
-
 .items {
   margin-top: 20px;
   display: flex;
@@ -117,6 +125,11 @@ header h1 {
   padding: 10px 15px;
   margin: 0 5px 20px;
   font-weight: 700;
+}
+
+.error {
+  color: red;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 500px) {

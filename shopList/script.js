@@ -8,7 +8,8 @@ const addItem = (event) =>{
     event.preventDefault();
     const item = myForm.itemInput.value.trim();
     if(item.length === 0){
-        alert("Proszę wypełnić formularz");
+        let alert = document.getElementsByClassName("error")[0];
+        alert.innerHTML = "Please enter an item";
         return;
     }
     const li = document.createElement("li");
@@ -31,7 +32,7 @@ const createButton = () =>{
 
 const removeItem = (event) =>{
     if(event.target.parentElement.classList.contains("remove-item")){
-        if(confirm("Czy na pewno chcesz usunąć")){
+        if(confirm("Are you sure?")){
             event.target.parentElement.parentElement.remove()
             updateUI()
         }

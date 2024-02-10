@@ -19,6 +19,7 @@
       </header>
       <form id="item-form" autocomplete="off">
           <input type="text" class="form-input" id="itemInput" name="item" placeholder="Add element"/>
+          <p class="error"></p>
           <button type="submit" class="btn">
             <i class="fa-solid fa-plus"></i> Add element
           </button>
@@ -26,17 +27,20 @@
 
       <div class="filter">
         <input type="text" class="form-input-filter" id="filter" placeholder="Filter"/>
+        <button class="filter-icon">
+          X
+        </button>
       </div>
 
       <ul id="item-list" class="items">
         <li>
-          Jabłka
+          Apples
           <button class="remove-item btn-link text-red">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </li>
         <li>
-          Pomarańcze
+          Oranges
           <button class="remove-item btn-link text-red">
             <i class="fa-solid fa-xmark"></i>
           </button>
