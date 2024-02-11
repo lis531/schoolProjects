@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../favicon.png">
     <title>countriesAPI</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap');
@@ -25,6 +26,10 @@
             scale: 1.15;
             box-shadow: gray 1rem 1rem 10px;
         }
+        .active{
+            scale: 1.15;
+            box-shadow: gray 1rem 1rem 10px;
+        }
         #list{
             display: flex;
             justify-content: center;
@@ -43,7 +48,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5vw;
+            gap: 3vw;
             margin-top: 2rem;
             margin-bottom: 2rem;
             flex-wrap: wrap;
@@ -119,9 +124,32 @@
             border: black 2px solid;
             border-radius: 1rem;
             padding: 0.5rem;
+            font-size: 1.2rem;
         }
         b{
             font-weight: normal;
+        }
+        .animation{
+            animation: fadeIn 0.5s forwards;
+        }
+        @keyframes fadeIn{
+            from{
+                opacity: 0;
+            }
+            to{
+                opacity: 1;
+            }
+        }
+        .revAnimation{
+            animation: fadeOut 0.3s forwards;
+        }
+        @keyframes fadeOut{
+            from{
+                opacity: 1;
+            }
+            to{
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -149,7 +177,9 @@
         const modal = document.getElementById("modal")
         modal.style.display = "none"
         const openModal = (country) =>{
-            modal.style.display = "flex";
+            modal.style.display = "flex"
+            modal.classList.add("animation")
+            modal.classList.remove("revAnimation")
             modal.innerHTML = `
                 <div class="modal">
                     <h1>${country.name.official}</h1>
@@ -169,8 +199,16 @@
             `
             const btn = document.getElementById("btn")
             document.body.style.overflow = "hidden"
-            btn.addEventListener("click", () => {modal.style.display = "none"
-            document.body.style.overflow = "visible"
+            btn.addEventListener("click", () => {
+                modal.classList.remove("animation")
+                modal.classList.add("revAnimation")
+                //wait for animation to end
+                setTimeout(() => {
+                    modal.style.display = "none"
+                    document.body.style.overflow = "visible"
+                    let active = document.querySelector(".active")
+                    active.classList.remove("active")
+                }, 300)
             })
         }
 
@@ -184,12 +222,15 @@
                 const listElement = document.createElement("div");
                 listElement.classList.add("country")
 
-                listElement.addEventListener("click", () => {openModal(country)})
+                listElement.addEventListener("click", () => {
+                    openModal(country);
+                    listElement.classList.add("active");
+                })
 
                 listElement.innerHTML = `
-                <div class="content"><h1><span>${country.name.common}</span></h1>
-                <h2>Capital: <span>${country.capital}</span></h2></div>
-                <img src="${country.flags.svg}"></svg>
+                    <div class="content"><h1><span>${country.name.common}</span></h1>
+                    <h2>Capital: <span>${country.capital}</span></h2></div>
+                    <img src="${country.flags.svg}"></svg>
                 `;
 
                 list.append(listElement)
