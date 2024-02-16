@@ -7,9 +7,10 @@
     <link rel="icon" href="../favicon.png">
     <title>countriesAPI</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap');
-        html{
-            font-family: 'Titillium Web', sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+        html {
+            font-family: 'Nunito', sans-serif;
+            width: 99vw;
         }
         .country{
             width: 25rem;
@@ -23,11 +24,11 @@
             cursor: pointer;
         }
         .country:hover{
-            scale: 1.15;
+            transform: scale(1.15);
             box-shadow: gray 1rem 1rem 10px;
         }
         .active{
-            scale: 1.15;
+            transform: scale(1.15);
             box-shadow: gray 1rem 1rem 10px;
         }
         #list{
@@ -67,6 +68,7 @@
             background-color: white;
             transition: ease-in-out 0.3s;
             cursor: pointer;
+            font-family: inherit;
         }
         .button:hover{
             background-color: black;
@@ -194,7 +196,7 @@
                     <h3>Timezones: <b>${Array.isArray(country.timezones) ? country.timezones.join(', ') : country.timezones}</b></h3>
                     <h3>Top-level domain: <b>${country.tld.join(', ')}</b></h3>
                     <h3>Maps: <a href="${country.maps.googleMaps}"><b>Open maps</b></a></h3>
-                    <button id="btn">X</button>
+                    <button id="btn"><svg stroke="currentColor" viewBox="0 0 512 512" height="50px" width="50px" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368 144 144m224 0L144 368"></path></svg></button>
                 </div>
             `
             const btn = document.getElementById("btn")
@@ -202,7 +204,6 @@
             btn.addEventListener("click", () => {
                 modal.classList.remove("animation")
                 modal.classList.add("revAnimation")
-                //wait for animation to end
                 setTimeout(() => {
                     modal.style.display = "none"
                     document.body.style.overflow = "visible"
@@ -246,46 +247,47 @@
                 }
             }
             else if(val == "Oceania"){
-                link = all[0]
-                getData(true)
+                link = all[0];
+                getData(true);
             }
             else if(val == "Asia"){
-                link = all[1]
-                getData(true)
+                link = all[1];
+                getData(true);
             }
             else if(val == "Europe"){
-                link = all[2]
-                getData(true)
+                link = all[2];
+                getData(true);
             }
             else if(val == "America"){
-                link = all[3]
-                getData(true)
+                link = all[3];
+                getData(true);
             }
             else if(val == "Africa"){
-                link = all[4]
-                getData(true)
+                link = all[4];
+                getData(true);
             }
             else{
-                console.log("coś jest źle")
+                console.log("coś jest źle");
             }
         }
-        changeLink("All")
-        const search = document.getElementById("search")
+        changeLink("All");
+        const search = document.getElementById("search");
         search.addEventListener("input", () => {
-            const countries = document.querySelectorAll(".country")
+            const countries = document.querySelectorAll(".country");
             countries.forEach(country => {
-                spans = country.getElementsByTagName("span")
+                spans = country.getElementsByTagName("span");
                 if(spans[0].innerText.toLowerCase().includes(search.value.toLowerCase()) || spans[1].innerText.toLowerCase().includes(search.value.toLowerCase())){
-                    country.style.display = "block"
+                    country.style.display = "block";
                 }
                 else{
-                    country.style.display = "none"
+                    country.style.display = "none";
                 }
             });
         })
         buttons.forEach(button => {
             button.addEventListener("click", () =>{
-                changeLink(button.innerText)})
+                changeLink(button.innerText);
+            });
         });
     </script>
 </body>

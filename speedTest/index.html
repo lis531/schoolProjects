@@ -25,34 +25,54 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
+            height: 6vh;
             gap: 8vw;
-            background-color: gray;
             width: 100%;
-            filter: drop-shadow(0 4px 0.75rem gray);
+            border-bottom: 1px solid #ccc;
+            background-color: #eee;
+            box-shadow: 0 0 0.5rem 0.2rem rgba(0, 0, 0, 0.1);
             margin-bottom: 10vh;
         }
+        .top > p, .top > h2{
+            width: 10rem;
+            text-align: center;
+        }
         h1 {
-            margin-top: 15vh;
+            margin-top: 10vh;
             margin-bottom: 5vh;
         }
+        #word{
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        #alert{
+            color: red;
+        }
+        #startBtn {
+            margin-top: 20vh;
+        }
         button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             border-radius: 10px;
-            border: none;
-            background-color: rgb(175, 175, 175);
+            border: 1px solid #ccc;
+            background-color: #eee;
+            box-shadow: 0 0 0.5rem 0.2rem rgba(0, 0, 0, 0.1);
             cursor: pointer;
             width: 10vw;
             height: 4vh;
-            box-shadow: 5px 5px 10px lightgray;
             font-family: inherit;
             font-size: large;
         }
         input {
             border-radius: 10px;
             border: none;
-            background-color: rgb(187, 187, 187);
             width: 40vw;
             height: 5vh;
-            box-shadow: 5px 5px 10px lightgray;
+            border: 1px solid #ccc;
+            background-color: #eee;
+            box-shadow: 0 0 0.5rem 0.2rem rgba(0, 0, 0, 0.1);
             margin-bottom: 4vh;
             text-indent: 1vw;
             font-size: large;
@@ -81,17 +101,17 @@
 <body>
     <div class="top">
         <p id="par1"></p>
-        <h2>Szybkie pisanie</h2>
+        <h2>Speed test</h2>
         <p id="par2"></p>
     </div>
     <button id="startBtn">Start</button>
     <div id="main">
-        <h1 id="word" style="color: red;"></h1>
-        <h1 id="alert" style="color: red;">Źle</h1>
+        <h1 id="word"></h1>
+        <h1 id="alert">Wrong</h1>
         <form id="myForm">
-            <input type="text" id="input" placeholder="Wpisz tekst...">
+            <input type="text" id="input" placeholder="Write text..." autocomplete="off">
         </form>
-        <button id="checkBtn">Sprawdź</button>
+        <button id="checkBtn">Check</button>
     </div>
     <h1 id="summary"></h1>
     <button id="resetBtn">Reset</button>
@@ -109,6 +129,16 @@
         const time = document.getElementById("par2");
         const summary = document.getElementById("summary");
 
+        let iloscCzasu = 20;
+        let wynik = 0;
+        let correctLetters = 0;
+        let wps = 0;
+        let lps = 0;
+        let randomNumber = Math.floor(Math.random() * 370105);
+        let id;
+
+        let slowaArr = [];
+
         main.style.display = "none";
         resetBtn.style.display = "none";
         alertMessage.style.opacity = '0';
@@ -116,63 +146,26 @@
         const start = () => {
             startBtn.style.display = "none";
             main.style.display = "flex";
+            
+            iloscCzasu = 20;
+            wynik = 0;
+            correctLetters = 0;
+            wps = 0;
+            lps = 0;
 
-            let iloscCzasu = 20;
-            let wynik = 0;
-            let correctLetters = 0;
-            let wps = 0;
-            let lps = 0;
-
-            let randomNumber = Math.floor(Math.random() * 370105);
-            let slowaArr = [];
-
-            function readTextFile(file) {
-                var rawFile = new XMLHttpRequest();
-                rawFile.open("GET", file, false);
-                rawFile.onreadystatechange = function () {
-                    if (rawFile.readyState === 4) {
-                        if (rawFile.status === 200 || rawFile.status == 0) {
-                            var allText = rawFile.responseText;
-                            slowaArr = allText.split("\n");
-                        }
-                    }
-                };
-                rawFile.send(null);
-            }
-            readTextFile("words_alpha.txt");
+            randomNumber = Math.floor(Math.random() * 370105);
 
             time.innerHTML = iloscCzasu + "s";
             stats.innerHTML = "Your WPS is: " + wps + ".0" + "<br>Your LPS is: " + lps + ".0";
             slowoPar.innerHTML = slowaArr[randomNumber];
 
-            const checkInput = () => {
-                let wpisaneSlowo = input.value.trim().toLowerCase();
-                if (wpisaneSlowo == slowaArr[randomNumber].trim()) {
-                    wynik += 1;
-                    randomNumber = Math.floor(Math.random() * 370105);
-                    slowoPar.innerHTML = slowaArr[randomNumber];
-                    myForm.reset();
-                } else {
-                    alertMessage.style.animation = "alert 0.8s";
-                    alertMessage.addEventListener("animationend", () => {
-                        alertMessage.style.animation = "";
-                    });
-                }
-            };
-
-            const zmianaCzasu = () => {
-                wps = (wynik / (20 - iloscCzasu)).toFixed(1);
-                lps = (correctLetters / (20 - iloscCzasu)).toFixed(1);
-                stats.innerHTML = "Your WPS is: " + wps + "<br>Your LPS is: " + lps;
-                time.innerHTML = iloscCzasu + "s";
-            };
-
-            let id = setInterval(() => {
+            id = setInterval(() => {
                 if (iloscCzasu > 0) {
                     iloscCzasu--;
                     zmianaCzasu();
                 } else {
                     summary.innerHTML = "Your WPS is: " + wps + "<br>Your LPS is: " + lps;
+                    summary.style.display = "flex";
                     stats.style.display = "none";
                     main.style.display = "none";
                     time.style.display = "none";
@@ -180,46 +173,84 @@
                     clearInterval(id);
                 }
             }, 1000);
+        };
+        
+        async function readTextFile(file) {
+            try {
+                const response = await fetch(file);
+                const allText = await response.text();
+                slowaArr = allText.split("\n").filter(word => word.trim() !== "");
+                console.log(slowaArr);
+            } catch (error) {
+                console.error("Error reading the text file:", error);
+            }
+        }
+        readTextFile("words_alpha.txt");
 
-            checkBtn.addEventListener("click", checkInput);
-
-            const reset = () => {
-                input.style.display = "flex";
-                checkBtn.style.display = "flex";
-                resetBtn.style.display = "none";
-                summary.display.style = "none";
-                input.value = "";
+        const checkInput = () => {
+            let wpisaneSlowo = input.value.trim().toLowerCase();
+            console.log(slowaArr)
+            if (wpisaneSlowo === slowaArr[randomNumber].trim()) {
+                wynik += 1;
                 randomNumber = Math.floor(Math.random() * 370105);
                 slowoPar.innerHTML = slowaArr[randomNumber];
-                clearInterval(id);
-                start();
-            };
-
-            resetBtn.addEventListener("click", reset);
-
-            myForm.addEventListener("submit", (e) => {
-                e.preventDefault();
-            });
-
-            myForm.addEventListener("keyup", (e) => {
-                if (e.key === "Enter") {
-                    checkInput();
-                }
-                let lettersArr = slowaArr[randomNumber].trim().split("");
-                let inputArr = input.value.trim().toLowerCase().split("");
-                for (let i = 0; i < lettersArr.length; i++) {
-                    let letter = lettersArr[i];
-                    let inputLitera = inputArr[i];
-                    if (inputLitera === letter) {
-                        lettersArr[i] = "<span style='color: green;'>" + letter + "</span>";
-                        correctLetters++;
-                    } else {
-                        lettersArr[i] = "<span style='color: red;'>" + letter + "</span>";
-                    }
-                }
-                slowoPar.innerHTML = lettersArr.join("");
-            });
+                myForm.reset();
+            } else {
+                alertMessage.style.animation = "alert 0.8s";
+                alertMessage.addEventListener("animationend", () => {
+                    alertMessage.style.animation = "";
+                });
+            }
         };
+
+        const zmianaCzasu = () => {
+            wps = (wynik / (20 - iloscCzasu)).toFixed(1);
+            lps = (correctLetters / (20 - iloscCzasu)).toFixed(1);
+            stats.innerHTML = "Your WPS is: " + wps + "<br>Your LPS is: " + lps;
+            time.innerHTML = iloscCzasu + "s";
+        };
+
+        const reset = () => {
+            input.style.display = "flex";
+            checkBtn.style.display = "flex";
+            resetBtn.style.display = "none";
+            summary.style.display = "none";
+            stats.style.display = "block";
+            time.style.display = "block";
+            input.value = "";
+            slowoPar.innerHTML = slowaArr[randomNumber];
+            clearInterval(id);
+            start();
+        };
+
+        checkBtn.addEventListener("click", checkInput);
+        resetBtn.addEventListener("click", reset);
+
+        myForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+        });
+
+        document.addEventListener("keyup", (e) => {
+            if (e.key === "Enter") {
+                checkInput();
+            }
+            let lettersArr = slowaArr[randomNumber].trim().split("");
+            let inputArr = input.value.trim().toLowerCase().split("");
+            for (let i = 0; i < inputArr.length; i++) {
+                if(inputArr.length > lettersArr.length) {
+                    return;
+                }
+                let letter = lettersArr[i];
+                let inputLitera = inputArr[i];
+                if (inputLitera === letter) {
+                    lettersArr[i] = "<span style='color: green;'>" + letter + "</span>";
+                    correctLetters++;
+                } else if(inputLitera !== "") {
+                    lettersArr[i] = "<span style='color: red;'>" + letter + "</span>";
+                }
+            }
+            slowoPar.innerHTML = lettersArr.join("");
+        });
 
         startBtn.addEventListener("click", start);
     </script>
