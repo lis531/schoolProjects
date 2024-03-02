@@ -8,8 +8,10 @@
     <title>Speed test</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
-        html {
+        * {
             font-family: 'Nunito', sans-serif;
+        }
+        html {
             font-weight: 500;
         }
         body {
@@ -55,18 +57,17 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 10px;
+            border-radius: 0.6rem;
             border: 1px solid #ccc;
             background-color: #eee;
             box-shadow: 0 0 0.5rem 0.2rem rgba(0, 0, 0, 0.1);
             cursor: pointer;
             width: 10vw;
             height: 4vh;
-            font-family: inherit;
             font-size: large;
         }
         input {
-            border-radius: 10px;
+            border-radius: 0.6rem;
             border: none;
             width: 40vw;
             height: 5vh;
@@ -104,17 +105,17 @@
         <h2>Speed test</h2>
         <p id="par2"></p>
     </div>
-    <button id="startBtn">Start</button>
+    <button type="button" id="startBtn">Start</button>
     <div id="main">
         <h1 id="word"></h1>
         <h1 id="alert">Wrong</h1>
         <form id="myForm">
             <input type="text" id="input" placeholder="Write text..." autocomplete="off">
         </form>
-        <button id="checkBtn">Check</button>
+        <button type="button" id="checkBtn">Check</button>
     </div>
     <h1 id="summary"></h1>
-    <button id="resetBtn">Reset</button>
+    <button type="button" id="resetBtn">Reset</button>
 
     <script>
         const main = document.getElementById("main");

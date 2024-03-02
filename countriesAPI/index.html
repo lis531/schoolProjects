@@ -8,15 +8,14 @@
     <title>countriesAPI</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
-        html {
+        * {
             font-family: 'Nunito', sans-serif;
-            width: 99vw;
         }
         .country{
             width: 25rem;
             height: 25rem;
-            border: 1px solid black;
-            border-radius: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 0.6rem;
             margin: 2rem;
             text-align: center;
             transition: ease-in-out 0.3s;
@@ -56,7 +55,7 @@
         }
         .line{
             width: 50%;
-            border-bottom: 2px solid rgb(197, 197, 197);
+            border-bottom: 2px solid #ccc;
             border-radius: 1rem;
         }
         .button{
@@ -64,11 +63,10 @@
             width: 6rem;
             height: 3rem;
             font-size: 1.3rem;
-            border-radius: 1rem;
+            border-radius: 0.6rem;
             background-color: white;
             transition: ease-in-out 0.3s;
             cursor: pointer;
-            font-family: inherit;
         }
         .button:hover{
             background-color: black;
@@ -124,7 +122,7 @@
         }
         input{
             border: black 2px solid;
-            border-radius: 1rem;
+            border-radius: 0.6rem;
             padding: 0.5rem;
             font-size: 1.2rem;
         }
@@ -160,12 +158,12 @@
         <h1>Countries API</h1>
         <div class="line"></div>
         <div class="buttons">
-            <button class="button">All</button>
-            <button class="button">Oceania</button>
-            <button class="button">Asia</button>
-            <button class="button">Europe</button>
-            <button class="button">America</button>
-            <button class="button">Africa</button>
+            <button type="button" class="button">All</button>
+            <button type="button" class="button">Oceania</button>
+            <button type="button" class="button">Asia</button>
+            <button type="button" class="button">Europe</button>
+            <button type="button" class="button">America</button>
+            <button type="button" class="button">Africa</button>
             <input type="text" id="search" placeholder="Search">
         </div>
     </div>
@@ -196,7 +194,7 @@
                     <h3>Timezones: <b>${Array.isArray(country.timezones) ? country.timezones.join(', ') : country.timezones}</b></h3>
                     <h3>Top-level domain: <b>${country.tld.join(', ')}</b></h3>
                     <h3>Maps: <a href="${country.maps.googleMaps}"><b>Open maps</b></a></h3>
-                    <button id="btn"><svg stroke="currentColor" viewBox="0 0 512 512" height="50px" width="50px" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368 144 144m224 0L144 368"></path></svg></button>
+                    <button type="button" id="btn"><svg stroke="currentColor" viewBox="0 0 512 512" height="50px" width="50px" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368 144 144m224 0L144 368"></path></svg></button>
                 </div>
             `
             const btn = document.getElementById("btn")

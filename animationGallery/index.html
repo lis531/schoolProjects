@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +7,13 @@
     <title>Document</title>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
+        *{
+            font-family: 'Roboto Mono', monospace;
+        }
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
-            font-family: 'Roboto Mono', monospace;
         }
         body{
             display: flex;
@@ -107,17 +109,16 @@
         button{
             padding: 1rem;
             border: 1px solid #ccc;
-            border-radius: 0.5rem;
+            border-radius: 0.6rem;
             background: #eee;
             cursor: pointer;
             transition: ease-in-out 0.3s;
             box-shadow: 0 0 0.5rem 0.2rem rgba(0, 0, 0, 0.1);
-            font-family: inherit;
             font-size: inherit;
         }
         button:hover{
             background: #ddd;
-            scale: 1.1;
+            transform: scale(1.1);
         }
         button::after{
             content: '';
@@ -139,10 +140,10 @@
 </head>
 <body>
     <nav>
-        <button onclick="document.getElementsByClassName('main')[0].style.animation = 'none'; changeText();">Disable animations</button>
-        <button id="stateChangeBtn">Pause animations</button>
-        <button onclick="document.getElementsByClassName('main')[0].style.animation = 'spin 12s linear infinite'; changeText();">Animation 1</button>
-        <button onclick="document.getElementsByClassName('main')[0].style.animation = 'spinChronological 12s linear infinite'; changeText();">Animation 2</button>
+        <button type="button" onclick="document.getElementsByClassName('main')[0].style.animation = 'none'; changeText();">Disable animations</button>
+        <button type="button" id="stateChangeBtn">Pause animations</button>
+        <button type="button" onclick="document.getElementsByClassName('main')[0].style.animation = 'spin 12s linear infinite'; changeText();">Animation 1</button>
+        <button type="button" onclick="document.getElementsByClassName('main')[0].style.animation = 'spinChronological 12s linear infinite'; changeText();">Animation 2</button>
     </nav>
     <div>
         <div class="main">
