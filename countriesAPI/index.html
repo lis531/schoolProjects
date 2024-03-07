@@ -11,40 +11,46 @@
         * {
             font-family: 'Nunito', sans-serif;
         }
-        .country{
-            width: 25rem;
-            height: 25rem;
+        body {
+            margin: 0;
+        }
+        body::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 10px;
+        }
+        body::-webkit-scrollbar {
+            width: 5px;
+        }
+        .country {
+            position: relative;
             border: 1px solid #ccc;
             border-radius: 0.6rem;
-            margin: 2rem;
             text-align: center;
             transition: ease-in-out 0.3s;
             background-color: rgb(251, 251, 251);
             cursor: pointer;
+            max-width: 40ch;
+            width: 100%;
+            min-height: 32ch;
+            height: 100%;
         }
-        .country:hover{
-            transform: scale(1.15);
+        .country:hover, .active {
+            transform: scale(1.1);
             box-shadow: gray 1rem 1rem 10px;
         }
-        .active{
-            transform: scale(1.15);
-            box-shadow: gray 1rem 1rem 10px;
+        #list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(32ch, 1fr));
+            grid-template-rows: auto;
+            justify-items: center;
+            padding: 4rem 3vw 4rem 3vw;
+            gap: 2.5rem;
         }
-        #list{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: row;
-            flex-wrap: wrap;
+        img {
+            width: 80%;
+            height: auto;
         }
-        img{
-            width: 15rem;
-            height: 10rem;
-        }
-        .content{
-            height: 10rem;
-        }
-        .buttons{
+        .buttons {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -53,12 +59,12 @@
             margin-bottom: 2rem;
             flex-wrap: wrap;
         }
-        .line{
+        .line {
             width: 50%;
             border-bottom: 2px solid #ccc;
             border-radius: 1rem;
         }
-        .button{
+        .button {
             border: 2px solid black;
             width: 6rem;
             height: 3rem;
@@ -68,18 +74,18 @@
             transition: ease-in-out 0.3s;
             cursor: pointer;
         }
-        .button:hover{
+        .button:hover {
             background-color: black;
             color: white;
         }
-        .top{
+        .top {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             gap: 1.5rem;
         }
-        .modalBackground{
+        .modalBackground {
             position: fixed;
             top: 0;
             left: 0;
@@ -91,7 +97,7 @@
             align-items: center;
             justify-content: center;
         }
-        .modal{
+        .modal {
             display: flex;
             align-items: center;
             justify-content: start;
@@ -106,33 +112,36 @@
             background-color: white;
             padding: 2rem;
         }
-        .modal h1, .modal h2, .modal h3{
+        .modal h1, .modal h2, .modal h3 {
             width: 80%;
             margin: 0;
             margin-bottom: 0.8rem;
         }
-        #btn{
+        #btn {
             position: absolute;
             top: 1rem;
             right: 1rem;
             background-color: transparent;
-            font-size: 2rem;
             cursor: pointer;
             border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
         }
-        input{
+        input {
             border: black 2px solid;
             border-radius: 0.6rem;
             padding: 0.5rem;
             font-size: 1.2rem;
         }
-        b{
+        b {
             font-weight: normal;
         }
-        .animation{
+        .animation {
             animation: fadeIn 0.5s forwards;
         }
-        @keyframes fadeIn{
+        @keyframes fadeIn {
             from{
                 opacity: 0;
             }
@@ -140,10 +149,10 @@
                 opacity: 1;
             }
         }
-        .revAnimation{
+        .revAnimation {
             animation: fadeOut 0.3s forwards;
         }
-        @keyframes fadeOut{
+        @keyframes fadeOut {
             from{
                 opacity: 1;
             }
@@ -170,6 +179,7 @@
     <div class="modalBackground" id="modal"></div>
     <div id="list">
     </div>
+    <!-- <footer>Copyright © 2024 | Borys Gajewski | All Rights Reserved</footer> -->
     <script>
         const buttons = document.querySelectorAll("button")
         let link = "oceania";
@@ -194,17 +204,19 @@
                     <h3>Timezones: <b>${Array.isArray(country.timezones) ? country.timezones.join(', ') : country.timezones}</b></h3>
                     <h3>Top-level domain: <b>${country.tld.join(', ')}</b></h3>
                     <h3>Maps: <a href="${country.maps.googleMaps}"><b>Open maps</b></a></h3>
-                    <button type="button" id="btn"><svg stroke="currentColor" viewBox="0 0 512 512" height="50px" width="50px" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368 144 144m224 0L144 368"></path></svg></button>
+                    <button type="button" id="btn"><svg stroke="currentColor" viewBox="0 0 512 512" height="50px" width="50px"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368 144 144m224 0L144 368"></path></svg></button>
                 </div>
             `
             const btn = document.getElementById("btn")
             document.body.style.overflow = "hidden"
+            document.body.style.marginRight = "5px";
             btn.addEventListener("click", () => {
                 modal.classList.remove("animation")
                 modal.classList.add("revAnimation")
                 setTimeout(() => {
                     modal.style.display = "none"
                     document.body.style.overflow = "visible"
+                    document.body.style.marginRight = "0px";
                     let active = document.querySelector(".active")
                     active.classList.remove("active")
                 }, 300)
@@ -235,6 +247,7 @@
                 list.append(listElement)
             });
         }
+
         const all = ['oceania', 'asia', 'europe', 'america', 'africa']
         const changeLink = (val) =>{
             if(val == "All"){
@@ -265,10 +278,11 @@
                 getData(true);
             }
             else{
-                console.log("coś jest źle");
+                console.log("Something broke");
             }
         }
         changeLink("All");
+
         const search = document.getElementById("search");
         search.addEventListener("input", () => {
             const countries = document.querySelectorAll(".country");
