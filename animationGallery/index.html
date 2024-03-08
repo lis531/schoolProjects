@@ -11,7 +11,7 @@
             font-family: 'Roboto Mono', monospace;
         }
         html, body {
-            height: 100%;
+            min-height: 100dvh;
             margin: 0;
             padding: 0;
         }
@@ -136,6 +136,13 @@
         button:not(:hover)::after{
             transform: scaleX(0);
         }
+        footer {
+            position: absolute;
+            bottom: 0;
+            padding: 1rem;
+            width: -webkit-fill-available;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -155,6 +162,7 @@
             <div class="f6"><p>6</p></div>
         </div>
     </div>
+    <footer>Copyright © 2024 | Borys Gajewski | All Rights Reserved</footer>
 </body>
 <script>
     const btn = document.getElementById('stateChangeBtn');

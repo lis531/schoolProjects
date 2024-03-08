@@ -12,6 +12,7 @@
             font-family: 'Nunito', sans-serif;
         }
         body {
+            min-height: 100dvh;
             margin: 0;
         }
         body::-webkit-scrollbar-thumb {
@@ -138,6 +139,11 @@
         b {
             font-weight: normal;
         }
+        footer {
+            width: -webkit-fill-available;
+            text-align: center;
+            padding: 1rem;
+        }
         .animation {
             animation: fadeIn 0.5s forwards;
         }
@@ -179,7 +185,7 @@
     <div class="modalBackground" id="modal"></div>
     <div id="list">
     </div>
-    <!-- <footer>Copyright © 2024 | Borys Gajewski | All Rights Reserved</footer> -->
+    <footer>Copyright © 2024 | Borys Gajewski | All Rights Reserved</footer>
     <script>
         const buttons = document.querySelectorAll("button")
         let link = "oceania";
