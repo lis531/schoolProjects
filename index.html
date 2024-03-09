@@ -11,12 +11,19 @@
         html {
             font-family: 'Inter', sans-serif;
         }
+        body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100dvh;
+            margin: 0;
+        }
         .projects {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-wrap: wrap;
-            margin-top: 15vh;
         }
         a {
             text-decoration: none;
@@ -27,6 +34,7 @@
             padding: 1rem;
             margin: 1.5rem;
             transition: ease-in-out 0.3s;
+            text-align: center;
         }
         a:hover {
             background-color: black;
@@ -36,25 +44,31 @@
             text-align: center;
             font-size: 3.2rem;
             margin-top: 15vh;
+            margin-bottom: 10vh;
         }
         footer {
-            position: absolute;
-            bottom: 0;
             width: -webkit-fill-available;
             text-align: center;
             padding: 1rem;
         }
+        @media screen and (max-width: 600px) {
+            a {
+                width: 90%;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>School Projects</h1>
-    <div class="projects">
-        <a href="photoGallery/index.html">Gallery</a>
-        <a href="shopList/index.html">Shopping list</a>
-        <a href="speedTest/index.html">Speed test</a>
-        <a href="countriesAPI/index.html">countriesAPI</a>
-        <a href="animationGallery/index.html">Animation Gallery</a>
-    </div>
+    <main>
+        <h1>School Projects</h1>
+        <div class="projects">
+            <a href="photoGallery/index.html">Gallery</a>
+            <a href="shopList/index.html">Shopping list</a>
+            <a href="speedTest/index.html">Speed test</a>
+            <a href="countriesAPI/index.html">countriesAPI</a>
+            <a href="animationGallery/index.html">Animation Gallery</a>
+        </div>
+    </main>
     <footer>Copyright © 2024 | Borys Gajewski | All Rights Reserved</footer>
 </body>
 </html>

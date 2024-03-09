@@ -13,16 +13,19 @@
         }
         body {
             margin: 0;
+            min-height: 100dvh;
+            
         }
         h1 {
             text-align: center;
-            margin-top: 3vh;
             margin-bottom: 4vh;
             font-size: 2.2rem;
+            margin: 0;
+            padding-top: 3vh;
         }
         .imageBig {
-            width: 60vh;
-            height: 60vh;
+            aspect-ratio: 1/1;
+            height: 60dvh;
             transition: ease-in-out 0.3s;
             border-radius: 1rem;
             border: 2px solid black;
@@ -36,14 +39,15 @@
         }
         .bigDiv {
             margin-top: 5vh;
-            margin-bottom: 5vh;
+            margin-bottom: 1vh;
             display: flex;
             align-items: center;
             flex-direction: column;
         }
         button {
+            aspect-ratio: 1 / 1;
             width: 150px;
-            height: 150px;
+            height: auto;
             border-radius: 0.6rem;
             border: 2px solid black;
             transition: ease-in-out 0.3s;
@@ -60,6 +64,8 @@
             cursor: pointer;
         }
         footer {
+            position: absolute;
+            bottom: 0;
             width: -webkit-fill-available;
             text-align: center;
         }
