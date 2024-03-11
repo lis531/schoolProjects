@@ -33,11 +33,11 @@
             background-color: #eee;
             box-shadow: 0 0 0.5rem 0.2rem rgba(0, 0, 0, 0.1);
             margin-bottom: 10dvh;
+            min-height: 4rem;
         }
         .top > p, .top > h2 {
             text-align: center;
             width: 20vw;
-            min-width: 8rem;
         }
         #par1 {
             text-align: right;
@@ -70,7 +70,7 @@
             cursor: pointer;
             width: 10vw;
             height: 4vh;
-            min-width: 4rem;
+            min-width: 8rem;
             min-height: 2.5rem;
             font-size: large;
         }
@@ -79,7 +79,7 @@
             border: none;
             width: 40vw;
             height: 5vh;
-            min-width: 13rem;
+            min-width: 15rem;
             min-height: 3rem;
             border: 1px solid #ccc;
             background-color: #eee;
@@ -112,6 +112,20 @@
             width: -webkit-fill-available;
             text-align: center;
             padding: 1rem;
+        }
+
+        @media screen and (max-width: 700px){
+            #par1 {
+                text-align: left;
+                padding-left: 1vw;
+            }
+            #par2 {
+                text-align: right;
+                padding-right: 1vw;
+            }
+            .top > * {
+                width: 33% !important;
+            }
         }
     </style>
 </head>
@@ -184,9 +198,9 @@
                 } else {
                     summary.innerHTML = "Your WPS is: " + wps + "<br>Your LPS is: " + lps;
                     summary.style.display = "flex";
-                    stats.style.display = "none";
+                    stats.style.visibility = "hidden";
+                    time.style.visibility = "hidden";
                     main.style.display = "none";
-                    time.style.display = "none";
                     resetBtn.style.display = "flex";
                     clearInterval(id);
                 }
@@ -231,8 +245,8 @@
             checkBtn.style.display = "flex";
             resetBtn.style.display = "none";
             summary.style.display = "none";
-            stats.style.display = "block";
-            time.style.display = "block";
+            stats.style.visibility = "visible";
+            time.style.visibility = "visible";
             input.value = "";
             slowoPar.innerHTML = slowaArr[randomNumber];
             clearInterval(id);

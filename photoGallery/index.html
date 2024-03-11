@@ -14,7 +14,9 @@
         body {
             margin: 0;
             min-height: 100dvh;
-            
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;    
         }
         h1 {
             text-align: center;
@@ -29,6 +31,7 @@
             transition: ease-in-out 0.3s;
             border-radius: 1rem;
             border: 2px solid black;
+            max-height: 90dvw;
         }
         .imageContainer {
             display: flex;
@@ -36,6 +39,7 @@
             justify-content: center;
             gap: 2%;
             margin-top: 2vh;
+            margin: 2vh 2vw 0 2vw;
         }
         .bigDiv {
             margin-top: 5vh;
@@ -46,7 +50,7 @@
         }
         button {
             aspect-ratio: 1 / 1;
-            width: 150px;
+            width: 200px;
             height: auto;
             border-radius: 0.6rem;
             border: 2px solid black;
@@ -56,6 +60,7 @@
             align-items: center;
             background-size: cover;
             filter: saturate(0.3);
+            padding: 0;
         }
         button:hover {
             filter: saturate(1);
@@ -64,25 +69,26 @@
             cursor: pointer;
         }
         footer {
-            position: absolute;
-            bottom: 0;
+            padding: 1rem;
             width: -webkit-fill-available;
             text-align: center;
         }
     </style>
 </head>
 <body>
-    <h1>Gallery</h1>
-    <div class="imageContainer">
-        <button type="button" id="button1" class="image-1" title="Photo 1"></button>
-        <button type="button" id="button2" class="image-2" title="Photo 2"></button>
-        <button type="button" id="button3" class="image-3" title="Photo 3"></button>
-        <button type="button" id="button4" class="image-4" title="Photo 4"></button>
-        <button type="button" id="button5" class="image-5" title="Photo 5"></button>
-    </div>
-    <div class="bigDiv">
-        <h2 id="par1">Photo 1</h2>
-        <img src="https://picsum.photos/2000/2000?random=1" alt="Bigger picture" id="imageBig" class="imageBig">
+    <div>
+        <h1>Gallery</h1>
+        <div class="imageContainer">
+            <button type="button" id="button1" class="image-1" title="Photo 1"></button>
+            <button type="button" id="button2" class="image-2" title="Photo 2"></button>
+            <button type="button" id="button3" class="image-3" title="Photo 3"></button>
+            <button type="button" id="button4" class="image-4" title="Photo 4"></button>
+            <button type="button" id="button5" class="image-5" title="Photo 5"></button>
+        </div>
+        <div class="bigDiv">
+            <h2 id="par1">Photo 1</h2>
+            <img src="https://picsum.photos/2000/2000?random=1" alt="Bigger picture" id="imageBig" class="imageBig">
+        </div>
     </div>
     <footer>Copyright © 2024 | Borys Gajewski | All Rights Reserved</footer>
 
