@@ -16,7 +16,8 @@
             min-height: 100dvh;
             display: flex;
             justify-content: space-between;
-            flex-direction: column;    
+            flex-direction: column;
+            overflow-x: hidden;  
         }
         h1 {
             text-align: center;
@@ -25,21 +26,32 @@
             margin: 0;
             padding-top: 3vh;
         }
-        .imageBig {
+        .imageContainer > :nth-child(2) {
             aspect-ratio: 1/1;
             height: 60dvh;
-            transition: ease-in-out 0.3s;
             border-radius: 1rem;
             border: 2px solid black;
-            max-height: 90dvw;
+            filter: none;
+            /* position: absolute; */
+            margin: auto;
+            z-index: 1;
+        }
+        img {
+            transition: ease-in-out 0.2s;
+            height: inherit;
+            filter: blur(5px) brightness(0.4) contrast(0.8);
         }
         .imageContainer {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: static;
+            max-height: 90dvw;
+            display: grid;
             gap: 2%;
             margin-top: 2vh;
-            margin: 2vh 2vw 0 2vw;
+            height: 50vh;
+            align-items: center;
+            align-content: center;
+            grid-template: 1fr / 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            transform: 0.5s ease-in-out;
         }
         .bigDiv {
             margin-top: 5vh;
@@ -48,60 +60,78 @@
             align-items: center;
             flex-direction: column;
         }
-        button {
-            aspect-ratio: 1 / 1;
-            width: 200px;
-            height: auto;
-            border-radius: 0.6rem;
-            border: 2px solid black;
-            transition: ease-in-out 0.3s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-size: cover;
-            filter: saturate(0.3);
-            padding: 0;
-        }
-        button:hover {
-            filter: saturate(1);
-            box-shadow: 10px 10px gray;
-            transform: scale(1.15);
-            cursor: pointer;
-        }
         footer {
             padding: 1rem;
             width: -webkit-fill-available;
             text-align: center;
         }
+        button {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            border: none;
+            background-color: black;
+            opacity: 0.5;
+            cursor: pointer;
+            transition: ease-in-out 0.3s;
+            color: white;
+            font-size: 2rem;
+        }
+        .overlay {
+            position: fixed;
+            width: -webkit-fill-available;
+            padding: 0 2vh 0 2vh;
+            height: 100dvh;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+        .space {
+            aspect-ratio: 1 / 1;
+            height: 60dvh;
+        }
     </style>
 </head>
 <body>
-    <div>
-        <h1>Gallery</h1>
-        <div class="imageContainer">
-            <button type="button" id="button1" class="image-1" title="Photo 1"></button>
-            <button type="button" id="button2" class="image-2" title="Photo 2"></button>
-            <button type="button" id="button3" class="image-3" title="Photo 3"></button>
-            <button type="button" id="button4" class="image-4" title="Photo 4"></button>
-            <button type="button" id="button5" class="image-5" title="Photo 5"></button>
-        </div>
-        <div class="bigDiv">
-            <h2 id="par1">Photo 1</h2>
-            <img src="https://picsum.photos/2000/2000?random=1" alt="Bigger picture" id="imageBig" class="imageBig">
-        </div>
+    <h1>Gallery</h1>
+    <div class="imageContainer">
+        <img src="" alt="" class="space">
+        <img src="https://picsum.photos/2000/2000?random=1" alt="Image 1">
+        <img src="https://picsum.photos/2000/2000?random=2" alt="Image 2">
+        <img src="https://picsum.photos/2000/2000?random=3" alt="Image 3">
+        <img src="https://picsum.photos/2000/2000?random=4" alt="Image 4">
+        <img src="https://picsum.photos/2000/2000?random=5" alt="Image 5">
     </div>
+    <div class="overlay">
+        <button title="left"><</button>
+        <button title="right">></button>
+    </div>
+
     <footer>Copyright © 2024 | Borys Gajewski | All Rights Reserved</footer>
 
     <script>
-        const par1 = document.getElementById("par1")
-        const imageBig = document.getElementById("imageBig")
         const buttons = document.querySelectorAll("button");
+        const images = document.querySelectorAll("img");
+        const imageContainer = document.querySelector(".imageContainer");
+
+        let currentNumber = 0;
+
+        images.forEach((image, i) => {
+            image.style.gridColumn = i + 1;
+        });
 
         buttons.forEach(button => {
-            button.style.backgroundImage = `url(https://picsum.photos/2000/2000?random=${button.title.slice(-1)})`;
             button.addEventListener("click", () => {
-                imageBig.src = `https://picsum.photos/2000/2000?random=${button.title.slice(-1)}`;
-                par1.innerHTML = button.title;
+                if (button.title === "left") {
+                    images.forEach((image, i) => {
+                        image.style.gridColumn = currentNumber + i;
+                    });
+                } else {
+                    images.forEach((image, i) => {
+                        image.style.gridColumn = currentNumber - i;
+                    });
+                }
             })
         })
     </script>
