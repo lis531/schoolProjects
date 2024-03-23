@@ -28,17 +28,15 @@
         }
         .imageContainer > :nth-child(2) {
             aspect-ratio: 1/1;
-            height: 60dvh;
-            border-radius: 1rem;
-            border: 2px solid black;
+            width: 40dvw;
             filter: none;
-            /* position: absolute; */
-            margin: auto;
+            border: 2px solid black;
             z-index: 1;
         }
         img {
             transition: ease-in-out 0.2s;
-            height: inherit;
+            width: 30dvw;
+            border-radius: 1rem;
             filter: blur(5px) brightness(0.4) contrast(0.8);
         }
         .imageContainer {
@@ -50,7 +48,7 @@
             height: 50vh;
             align-items: center;
             align-content: center;
-            grid-template: 1fr / 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template: 1fr / 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
             transform: 0.5s ease-in-out;
         }
         .bigDiv {
@@ -87,21 +85,30 @@
             align-items: center;
             z-index: 10;
         }
-        .space {
-            aspect-ratio: 1 / 1;
-            height: 60dvh;
+        @media screen and (max-width: 800px){
+            .imageContainer > :nth-child(2) {
+                width: 65dvw;
+            }
+            .imageContainer > :nth-child(1) {
+                margin-left: -25vw;
+            }
+            img {
+                width: 40dvw;
+            }
         }
     </style>
 </head>
 <body>
     <h1>Gallery</h1>
     <div class="imageContainer">
-        <img src="" alt="" class="space">
+        <img alt="">
         <img src="https://picsum.photos/2000/2000?random=1" alt="Image 1">
         <img src="https://picsum.photos/2000/2000?random=2" alt="Image 2">
         <img src="https://picsum.photos/2000/2000?random=3" alt="Image 3">
         <img src="https://picsum.photos/2000/2000?random=4" alt="Image 4">
         <img src="https://picsum.photos/2000/2000?random=5" alt="Image 5">
+        <img src="https://picsum.photos/2000/2000?random=6" alt="Image 6">
+        <img src="https://picsum.photos/2000/2000?random=7" alt="Image 7">
     </div>
     <div class="overlay">
         <button title="left"><</button>
@@ -115,25 +122,41 @@
         const images = document.querySelectorAll("img");
         const imageContainer = document.querySelector(".imageContainer");
 
-        let currentNumber = 0;
-
-        images.forEach((image, i) => {
-            image.style.gridColumn = i + 1;
-        });
+        const changeImage = (direction) => {
+            if(direction === "left") {
+                if(!images[0].src) {
+                    images[0].src = images[images.length - 1].src;
+                }
+                for(let i = images.length - 1; i >= 0; i--) {
+                    if(i === 0) {
+                        images[i].src = images[images.length - 1].src;
+                    } else {
+                        images[i].src = images[i - 1].src;
+                    }
+                };
+            } else {
+                images.forEach((image, i) => {
+                    if(i === images.length - 1) {
+                        image.src = images[0].src;
+                    } else {
+                        image.src = images[i + 1].src;
+                    }
+                });
+            }
+        }
 
         buttons.forEach(button => {
             button.addEventListener("click", () => {
-                if (button.title === "left") {
-                    images.forEach((image, i) => {
-                        image.style.gridColumn = currentNumber + i;
-                    });
-                } else {
-                    images.forEach((image, i) => {
-                        image.style.gridColumn = currentNumber - i;
-                    });
-                }
+                changeImage(button.title);
             })
         })
+        document.addEventListener("keydown", e => {
+            if(e.key === "ArrowLeft") {
+                changeImage("left");
+            } else if(e.key === "ArrowRight") {
+                changeImage("right");
+            }
+        });
     </script>
 </body>
 </html>
