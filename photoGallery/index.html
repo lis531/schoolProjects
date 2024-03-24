@@ -28,14 +28,14 @@
         }
         .imageContainer > :nth-child(2) {
             aspect-ratio: 1/1;
-            width: 40dvw;
+            width: 38dvw;
             filter: none;
             border: 2px solid black;
             z-index: 1;
         }
         img {
             transition: ease-in-out 0.2s;
-            width: 30dvw;
+            width: 29dvw;
             border-radius: 1rem;
             filter: blur(5px) brightness(0.4) contrast(0.8);
         }
@@ -43,12 +43,11 @@
             position: static;
             max-height: 90dvw;
             display: grid;
-            gap: 2%;
-            height: 50vh;
+            gap: 2dvw;
             align-items: center;
             align-content: center;
             grid-template: 1fr / 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-            overflow: hidden;
+            overflow-x: hidden;
         }
         .bigDiv {
             margin-top: 5vh;
@@ -85,7 +84,7 @@
         }
         .overlay {
             position: fixed;
-            width: 91dvw;
+            width: 98dvw;
             padding: 0 2vh 0 2vh;
             height: 100dvh;
             display: flex;
@@ -94,13 +93,13 @@
             z-index: 10;
         }
         a {
+            position: absolute;
             background-color: rgba(0, 0, 0, 0.5);
             border-radius: 50%;
             height: 32px;
             width: 32px;
             padding: 0.6rem;
             transition: ease-in-out 0.3s;
-            position: fixed;
             left: 1vw;
             top: 1rem;
             z-index: 11;

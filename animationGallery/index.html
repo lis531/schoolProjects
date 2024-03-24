@@ -145,13 +145,13 @@
             text-align: center;
         }
         a {
+            position: absolute;
             background-color: rgba(0, 0, 0, 0.5);
             border-radius: 50%;
             height: 32px;
             width: 32px;
             padding: 0.6rem;
             transition: ease-in-out 0.3s;
-            position: fixed;
             left: 1vw;
             top: 1rem;
         }
@@ -159,13 +159,18 @@
             background-color: rgba(0, 0, 0, 0.7);
         }
         @media screen and (max-width: 500px) {
-            button{
+            button {
                 width: 85%;
             }
         }
         @media screen and (max-height: 920px) {
             body > div {
                 margin-top: 15rem;
+            }
+        }
+        @media screen and (max-width: 900px) {
+            a {
+                display: none;
             }
         }
     </style>

@@ -41,7 +41,7 @@ header h1 {
 
 .container {
   width: 500px;
-  margin: 30px auto;
+  margin: 50px auto;
   padding: 20px;
 }
 
@@ -172,13 +172,13 @@ footer {
 }
 
 a {
+  position: absolute;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 50%;
   height: 32px;
   width: 32px;
   padding: 0.6rem;
   transition: ease-in-out 0.3s;
-  position: fixed;
   left: 1vw;
   top: 1rem;
   box-sizing: content-box;

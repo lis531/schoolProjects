@@ -149,18 +149,18 @@
         .animation {
             animation: fadeIn 0.5s forwards;
         }
-        a {
+        a[title="Go back"] {
+            position: absolute;
             background-color: rgba(0, 0, 0, 0.5);
             border-radius: 50%;
             height: 32px;
             width: 32px;
             padding: 0.6rem;
             transition: ease-in-out 0.3s;
-            position: fixed;
             left: 1vw;
             top: 1rem;
         }
-        a:hover {
+        a[title="Go back"]:hover {
             background-color: rgba(0, 0, 0, 0.7);
         }
         @keyframes fadeIn {
