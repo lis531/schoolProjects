@@ -149,6 +149,20 @@
         .animation {
             animation: fadeIn 0.5s forwards;
         }
+        a {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            height: 32px;
+            width: 32px;
+            padding: 0.6rem;
+            transition: ease-in-out 0.3s;
+            position: fixed;
+            left: 1vw;
+            top: 1rem;
+        }
+        a:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
         @keyframes fadeIn {
             from{
                 opacity: 0;
@@ -180,6 +194,9 @@
     </style>
 </head>
 <body>
+    <a href="../index.html" title="Go back">
+        <svg stroke="white" viewBox="0 0 512 512" height="32px" width="32px"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"></path></svg>
+    </a>
     <div class="top">
         <h1>Countries API</h1>
         <div class="line"></div>

@@ -114,6 +114,21 @@
             padding: 1rem;
         }
 
+        a {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            height: 32px;
+            width: 32px;
+            padding: 0.6rem;
+            transition: ease-in-out 0.3s;
+            position: fixed;
+            left: 1vw;
+            top: 1rem;
+        }
+        a:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
         @media screen and (max-width: 700px){
             #par1 {
                 text-align: left;
@@ -131,6 +146,9 @@
 </head>
 
 <body>
+    <a href="../index.html" title="Go back">
+        <svg stroke="white" viewBox="0 0 512 512" height="32px" width="32px"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"></path></svg>
+    </a>
     <div class="top">
         <p id="par1"></p>
         <h2>Speed test</h2>

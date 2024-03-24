@@ -171,6 +171,22 @@ footer {
   text-align: center;
 }
 
+a {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  padding: 0.6rem;
+  transition: ease-in-out 0.3s;
+  position: fixed;
+  left: 1vw;
+  top: 1rem;
+  box-sizing: content-box;
+}
+a:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
 @media (max-width: 500px) {
   .items li {
     width: 100%;

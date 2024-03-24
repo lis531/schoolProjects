@@ -44,12 +44,11 @@
             max-height: 90dvw;
             display: grid;
             gap: 2%;
-            margin-top: 2vh;
             height: 50vh;
             align-items: center;
             align-content: center;
             grid-template: 1fr / 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-            transform: 0.5s ease-in-out;
+            overflow: hidden;
         }
         .bigDiv {
             margin-top: 5vh;
@@ -64,6 +63,9 @@
             text-align: center;
         }
         button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 5rem;
             height: 5rem;
             border-radius: 50%;
@@ -75,15 +77,36 @@
             color: white;
             font-size: 2rem;
         }
+        button:hover {
+            opacity: 0.8;
+        }
+        button[title="right"] {
+            transform: rotate(180deg);
+        }
         .overlay {
             position: fixed;
-            width: -webkit-fill-available;
+            width: 91dvw;
             padding: 0 2vh 0 2vh;
             height: 100dvh;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 10;
+        }
+        a {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            height: 32px;
+            width: 32px;
+            padding: 0.6rem;
+            transition: ease-in-out 0.3s;
+            position: fixed;
+            left: 1vw;
+            top: 1rem;
+            z-index: 11;
+        }
+        a:hover {
+            background-color: rgba(0, 0, 0, 0.7);
         }
         @media screen and (max-width: 800px){
             .imageContainer > :nth-child(2) {
@@ -100,6 +123,9 @@
 </head>
 <body>
     <h1>Gallery</h1>
+    <a href="../index.html" title="Go back">
+        <svg stroke="white" viewBox="0 0 512 512" height="32px" width="32px"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"></path></svg>
+    </a>
     <div class="imageContainer">
         <img alt="">
         <img src="https://picsum.photos/2000/2000?random=1" alt="Image 1">
@@ -111,8 +137,8 @@
         <img src="https://picsum.photos/2000/2000?random=7" alt="Image 7">
     </div>
     <div class="overlay">
-        <button title="left"><</button>
-        <button title="right">></button>
+        <button title="left"><svg stroke="white" viewBox="0 0 512 512" height="32px" width="32px"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"></path></svg></button>
+        <button title="right"><svg stroke="white" viewBox="0 0 512 512" height="32px" width="32px"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"></path></svg></button>
     </div>
 
     <footer>Copyright © 2024 | Borys Gajewski | All Rights Reserved</footer>

@@ -144,6 +144,20 @@
             width: -webkit-fill-available;
             text-align: center;
         }
+        a {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            height: 32px;
+            width: 32px;
+            padding: 0.6rem;
+            transition: ease-in-out 0.3s;
+            position: fixed;
+            left: 1vw;
+            top: 1rem;
+        }
+        a:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
         @media screen and (max-width: 500px) {
             button{
                 width: 85%;
@@ -157,6 +171,9 @@
     </style>
 </head>
 <body>
+    <a href="../index.html" title="Go back">
+        <svg stroke="white" viewBox="0 0 512 512" height="32px" width="32px"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"></path></svg>
+    </a>
     <nav>
         <button type="button" onclick="document.getElementsByClassName('main')[0].style.animation = 'none'; changeText();">Disable animations</button>
         <button type="button" id="stateChangeBtn">Pause animations</button>
