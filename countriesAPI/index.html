@@ -213,7 +213,7 @@
     <div class="modalBackground" id="modal"></div>
     <div id="list">
     </div>
-    <footer>Copyright © 2024 | Borys Gajewski | All Rights Reserved</footer>
+    <footer>Copyright © 2025 | Borys Gajewski | All Rights Reserved</footer>
     <script>
         const buttons = document.querySelectorAll("button")
         let link = "oceania";
@@ -335,6 +335,7 @@
                 changeLink(button.innerText);
             });
         });
+        document.querySelector('footer').textContent = 'Copyright © ' + new Date().getFullYear().toString() + ' | Borys Gajewski | All Rights Reserved';
     </script>
 </body>
 </html>

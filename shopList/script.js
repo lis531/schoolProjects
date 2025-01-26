@@ -125,3 +125,4 @@ filter.addEventListener("focus", () => {
 filter.addEventListener("blur", () => {
     document.getElementsByClassName("filterInputDiv")[0].classList.remove("animation");
 });
+document.querySelector('footer').textContent = 'Copyright © ' + new Date().getFullYear().toString() + ' | Borys Gajewski | All Rights Reserved';

@@ -28,15 +28,34 @@
         }
         .imageContainer > :nth-child(2) {
             aspect-ratio: 1/1;
-            width: 38dvw;
             filter: none;
             border: 2px solid black;
             z-index: 1;
+            animation: forwards scaleUp 0.3s;
+        }
+        .imageContainer > :nth-child(1) {
+            animation: forwards scaleDown 0.3s;
+        }
+        @keyframes scaleUp {
+            from {
+                width: 29dvw;
+            }
+            to {
+                width: 37dvw;
+            }
+        }
+        @keyframes scaleDown {
+            from {
+                width: 37dvw;
+            }
+            to {
+                width: 29dvw;
+            }
         }
         img {
-            transition: ease-in-out 0.2s;
             width: 29dvw;
             border-radius: 1rem;
+            transition: filter 0.3s;
             filter: blur(5px) brightness(0.4) contrast(0.8);
         }
         .imageContainer {
@@ -118,6 +137,15 @@
                 width: 40dvw;
             }
         }
+        .slide-left {
+            transform: translateX(100%);
+            transition: transform 0.4s ease-in-out;
+        }
+        
+        .slide-right {
+            transform: translateX(-100%);
+            transition: transform 0.4s ease-in-out;
+        }
     </style>
 </head>
 <body>
@@ -126,14 +154,6 @@
         <svg stroke="white" viewBox="0 0 512 512" height="32px" width="32px"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"></path></svg>
     </a>
     <div class="imageContainer">
-        <img alt="">
-        <img src="https://picsum.photos/2000/2000?random=1" alt="Image 1">
-        <img src="https://picsum.photos/2000/2000?random=2" alt="Image 2">
-        <img src="https://picsum.photos/2000/2000?random=3" alt="Image 3">
-        <img src="https://picsum.photos/2000/2000?random=4" alt="Image 4">
-        <img src="https://picsum.photos/2000/2000?random=5" alt="Image 5">
-        <img src="https://picsum.photos/2000/2000?random=6" alt="Image 6">
-        <img src="https://picsum.photos/2000/2000?random=7" alt="Image 7">
     </div>
     <div class="overlay">
         <button title="left"><svg stroke="white" viewBox="0 0 512 512" height="32px" width="32px"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="48" d="M328 112L184 256l144 144"></path></svg></button>
@@ -147,28 +167,45 @@
         const images = document.querySelectorAll("img");
         const imageContainer = document.querySelector(".imageContainer");
 
+        for (let i = 0; i < 8; i++) {
+            imageElement = document.createElement("img");
+            imageElement.src = `https://picsum.photos/2000/2000?random${i}`;
+            imageElement.alt = "Image " + (i + 1);
+            imageContainer.appendChild(imageElement);   
+        };
+
         const changeImage = (direction) => {
-            if(direction === "left") {
-                if(!images[0].src) {
-                    images[0].src = images[images.length - 1].src;
-                }
-                for(let i = images.length - 1; i >= 0; i--) {
-                    if(i === 0) {
-                        images[i].src = images[images.length - 1].src;
-                    } else {
-                        images[i].src = images[i - 1].src;
-                    }
-                };
-            } else {
-                images.forEach((image, i) => {
-                    if(i === images.length - 1) {
-                        image.src = images[0].src;
-                    } else {
-                        image.src = images[i + 1].src;
-                    }
+            const imgs = [...document.querySelectorAll(".imageContainer img")];
+            if (imgs.some(img => img.classList.contains("slide-left") || img.classList.contains("slide-right"))) return;
+
+            if (direction === "left") {
+                imgs.forEach(img => {
+                    img.classList.remove("slide-right");
+                    img.classList.add("slide-left");
                 });
+
+                imgs[imgs.length - 1].addEventListener("transitionend", () => {
+                    imageContainer.insertBefore(imageContainer.lastElementChild, imageContainer.firstElementChild);
+                    imgs.forEach(img => {
+                        img.classList.remove("slide-left");
+                        img.classList.remove("scale-down");
+                    });
+                }, {once: true});
+            } else if (direction === "right") {
+                imgs.forEach(img => {
+                    img.classList.remove("slide-left");
+                    img.classList.add("slide-right");
+                });
+
+                imgs[0].addEventListener("transitionend", () => {
+                    imageContainer.appendChild(imageContainer.firstElementChild);
+                    imgs.forEach(img => {
+                        img.classList.remove("slide-right");
+                        img.classList.remove("scale-down");
+                    });
+                }, {once: true});
             }
-        }
+        };
 
         buttons.forEach(button => {
             button.addEventListener("click", () => {
@@ -182,6 +219,7 @@
                 changeImage("right");
             }
         });
+        document.querySelector('footer').textContent = 'Copyright © ' + new Date().getFullYear().toString() + ' | Borys Gajewski | All Rights Reserved';
     </script>
 </body>
 </html>

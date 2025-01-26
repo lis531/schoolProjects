@@ -165,7 +165,7 @@
     </div>
     <h1 id="summary"></h1>
     <button type="button" id="resetBtn">Reset</button>
-    <footer>Copyright © 2024 | Borys Gajewski | All Rights Reserved</footer>
+    <footer>Copyright © 2025 | Borys Gajewski | All Rights Reserved</footer>
     <script>
         const main = document.getElementById("main");
         const myForm = document.getElementById("myForm");
@@ -301,6 +301,7 @@
         });
 
         startBtn.addEventListener("click", start);
+        document.querySelector('footer').textContent = 'Copyright © ' + new Date().getFullYear().toString() + ' | Borys Gajewski | All Rights Reserved';
     </script>
 </body>
 </html>
