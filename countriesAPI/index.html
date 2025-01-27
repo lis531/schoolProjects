@@ -147,7 +147,7 @@
             padding: 1rem;
         }
         .animation {
-            animation: fadeIn 0.5s forwards;
+            animation: fadeIn 0.4s forwards;
         }
         a[title="Go back"] {
             position: absolute;
@@ -172,7 +172,7 @@
             }
         }
         .revAnimation {
-            animation: fadeOut 0.3s forwards;
+            animation: fadeOut 0.25s forwards;
         }
         @keyframes fadeOut {
             from{
@@ -225,7 +225,7 @@
             modal.classList.add("animation")
             modal.classList.remove("revAnimation")
             modal.innerHTML = `
-                <div class="modal">
+                <dialog class="modal">
                     <h1>${country.name.official}</h1>
                     <h2>Capital: <b>${country.capital}</b></h2>
                     <h3>Common name: <b>${country.name.common}</b></h3>
@@ -239,7 +239,7 @@
                     <h3>Top-level domain: <b>${country.tld.join(', ')}</b></h3>
                     <h3>Maps: <a href="${country.maps.googleMaps}"><b>Open maps</b></a></h3>
                     <button type="button" id="btn"><svg stroke="currentColor" viewBox="0 0 512 512" height="50px" width="50px"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368 144 144m224 0L144 368"></path></svg></button>
-                </div>
+                </dialog>
             `
             const btn = document.getElementById("btn")
             document.body.style.overflow = "hidden"
@@ -254,6 +254,20 @@
                     let active = document.querySelector(".active")
                     active.classList.remove("active")
                 }, 300)
+            })
+
+            modal.addEventListener("click", (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove("animation")
+                    modal.classList.add("revAnimation")
+                    setTimeout(() => {
+                        modal.style.display = "none"
+                        document.body.style.overflow = "visible"
+                        document.body.style.marginRight = "0px"
+                        let active = document.querySelector(".active")
+                        active.classList.remove("active")
+                    }, 300)
+                }
             })
         }
 

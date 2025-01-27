@@ -36,7 +36,6 @@ header h1 {
 .filter-icon{
   border: none;
   background-color: transparent;
-  cursor: pointer;
 }
 
 .container {
@@ -157,6 +156,26 @@ header h1 {
   padding: 10px 15px;
   margin: 0 5px 20px;
   font-weight: 700;
+}
+
+.items li span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.items li span > input {
+  cursor: pointer;
+}
+
+.summary {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 15px;
 }
 
 .error {

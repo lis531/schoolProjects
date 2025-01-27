@@ -4,9 +4,28 @@ const filterContainer = document.getElementsByClassName("filter")[0];
 const btnClear = document.getElementById("clear");
 const filter = document.getElementById("filter");
 const buttons = document.getElementsByClassName("btn-link");
+const itemsNum = document.getElementById("items");
+const checkedNum = document.getElementById("checked");
+const uncheckedNum = document.getElementById("unchecked");
 
 const updateUI = () => {
-    const items = Array.from(document.querySelectorAll("li")).map(li => li.innerText);
+    itemsNum.textContent = document.querySelectorAll("li").length;
+    checkedNum.textContent = Array.from(document.querySelectorAll("input[type='checkbox']")).filter(checkbox => checkbox.checked).length;
+    uncheckedNum.textContent = Array.from(document.querySelectorAll("input[type='checkbox']")).filter(checkbox => !checkbox.checked).length;
+    const items = Array.from(document.querySelectorAll("li")).map((item) => {
+        if(item.querySelector("input").checked){
+            item.querySelector("p").style.textDecoration = "line-through";
+            item.querySelector("p").style.color = "gray";
+        }
+        else{
+            item.querySelector("p").style.textDecoration = "none";
+            item.querySelector("p").style.color = "black";
+        }
+        return {
+            name: item.querySelector("p").textContent,
+            checked: item.querySelector("input").checked
+        }
+    })
     localStorage.setItem("items", JSON.stringify(items));
     if(items.length === 0){
         btnClear.style.display = "none"
@@ -37,28 +56,31 @@ const addItem = (event) => {
         alert.style.display = "none";
         alert.innerHTML = "";
     }
-    createItem({innerText: item})
+    createItem(item)
     myForm.itemInput.value = "";
     updateUI();
 }
 
-const removeItem = (item) => {
-    if(confirm("Are you sure?")){
-        console.log(item);
-        item.remove();
-        updateUI();
-    }
-}
-
-const createItem = (item) => {
+const createItem = (item, isChecked) => {
     const li = document.createElement("li");
     const button = createButton();
-    button.addEventListener("click", () => removeItem(li));
+    button.addEventListener("click", () => {
+        li.remove();
+        updateUI();
+    });
     const par = document.createElement("p");
-    par.innerHTML = item.innerText;
-    li.append(par);
+    par.innerHTML = item;
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = isChecked;
+    checkbox.addEventListener("change", () => {
+        updateUI();
+    })
+    const span = document.createElement("span");
+    span.append(checkbox);
+    span.append(par);
+    li.append(span);
     li.append(button);
-    li.style = item.style;
     itemList.append(li);
 }
 
@@ -66,27 +88,35 @@ const loadItems = () => {
     const items = JSON.parse(localStorage.getItem("items"));
     if(items){
         for(let i = 0; i < items.length; i++){
-            createItem({innerText: items[i]});
+            createItem(items[i].name, items[i].checked);
         }
         updateUI();
     }
     else{
         const items = [
             {
-                innerText: "Milk"
+                name: "Milk",
+                checked: false
             },
             {
-                innerText: "Eggs"
+                name: "Eggs",
+                checked: false
             },
             {
-                innerText: "Bread"
+                name: "Bread",
+                checked: false
             },
             {
-                innerText: "Juice"
+                name: "Juice",
+                checked: false
+            },
+            {
+                name: "Butter",
+                checked: false
             }
         ]
         items.forEach((item) => {
-            createItem(item);
+            createItem(item.name, item.checked);
         })
         updateUI();
     }
@@ -95,10 +125,10 @@ const loadItems = () => {
 loadItems();
 
 const filtr = () => {
-    const text = filter.value.trim().toLowerCase()
+    const text = filter.value.trim().toLowerCase();
     const items = document.querySelectorAll("li");
-    items.forEach((item) =>{
-        if(item.innerText.toLowerCase().search(text) < 0 && text.length != 0){
+    items.forEach((item) => {
+        if(item.textContent.toLowerCase().search(text) < 0 && text.length != 0){
             item.style.display = "none";
         }
         else{
@@ -110,11 +140,13 @@ const filtr = () => {
 myForm.addEventListener("submit", addItem);
 
 btnClear.addEventListener("click", () => {
-    const items = document.querySelectorAll("li");
-    items.forEach((item) => {
-        item.remove();
-    })
-    updateUI();
+    if(confirm("Are you sure?")){
+        const items = document.querySelectorAll("li");
+        items.forEach((item) => {
+            item.remove();
+        })
+        updateUI();
+    }
 })
 
 filter.addEventListener("input", filtr);
