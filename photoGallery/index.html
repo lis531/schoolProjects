@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="../favicon.png">
+    <link rel="icon" href="../public/favicon.png">
     <title>Gallery</title>
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+        @font-face {
+            font-family: "Inter";
+            src: url('../public/Inter.woff2') format('woff2');
+        }
         * {
             font-family: "Inter", sans-serif;
         }
@@ -17,7 +19,7 @@
             display: flex;
             justify-content: space-between;
             flex-direction: column;
-            overflow-x: hidden;  
+            overflow-x: hidden;
         }
         h1 {
             text-align: center;
@@ -26,46 +28,27 @@
             margin: 0;
             padding-top: 3vh;
         }
-        .imageContainer > :nth-child(2) {
+        .imageContainer > :nth-child(3) {
             aspect-ratio: 1/1;
             filter: none;
             border: 2px solid black;
-            z-index: 1;
-            animation: forwards scaleUp 0.3s;
-        }
-        .imageContainer > :nth-child(1) {
-            animation: forwards scaleDown 0.3s;
-        }
-        @keyframes scaleUp {
-            from {
-                width: 29dvw;
-            }
-            to {
-                width: 37dvw;
-            }
-        }
-        @keyframes scaleDown {
-            from {
-                width: 37dvw;
-            }
-            to {
-                width: 29dvw;
-            }
+            z-index: -1;
+            width: 44dvw;
         }
         img {
-            width: 29dvw;
+            width: 32dvw;
             border-radius: 1rem;
             transition: filter 0.3s;
             filter: blur(5px) brightness(0.4) contrast(0.8);
         }
         .imageContainer {
             position: static;
-            max-height: 90dvw;
             display: grid;
             gap: 2dvw;
             align-items: center;
             align-content: center;
             grid-template: 1fr / 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            margin-left: -40dvw;
             overflow-x: hidden;
         }
         .bigDiv {
@@ -103,8 +86,8 @@
         }
         .overlay {
             position: fixed;
-            width: 98dvw;
-            padding: 0 2vh 0 2vh;
+            width: 96dvw;
+            padding: 0 2vw 0 2vw;
             height: 100dvh;
             display: flex;
             justify-content: space-between;
@@ -127,23 +110,23 @@
             background-color: rgba(0, 0, 0, 0.7);
         }
         @media screen and (max-width: 800px){
-            .imageContainer > :nth-child(2) {
-                width: 65dvw;
-            }
-            .imageContainer > :nth-child(1) {
-                margin-left: -25vw;
-            }
             img {
-                width: 40dvw;
+                height: 50vh;
+            }
+            .imageContainer {
+                margin-left: -60vw;
+            }
+            .imageContainer > :nth-child(3) {
+                width: 80vw;
             }
         }
         .slide-left {
-            transform: translateX(100%);
+            transform: translateX(34vw);
             transition: transform 0.4s ease-in-out;
         }
         
         .slide-right {
-            transform: translateX(-100%);
+            transform: translateX(-34vw);
             transition: transform 0.4s ease-in-out;
         }
     </style>
@@ -168,10 +151,25 @@
         const imageContainer = document.querySelector(".imageContainer");
 
         for (let i = 0; i < 8; i++) {
-            imageElement = document.createElement("img");
+            let imageElement = document.createElement("img");
+            imageElement.style.opacity = "0";
             imageElement.src = `https://picsum.photos/2000/2000?random${i}`;
             imageElement.alt = "Image " + (i + 1);
             imageContainer.appendChild(imageElement);   
+            imageElement.addEventListener('load', () => {
+                const animation = imageElement.animate([
+                    { opacity: 0, filter: 'blur(10px)' },
+                    { opacity: 1, filter: 'blur(0px)' }
+                ], {
+                    duration: 300,
+                    easing: 'ease-out',
+                    fill: 'forwards'
+                });
+                
+                animation.finished.then(() => {
+                    imageElement.style.opacity = "1";
+                });
+            });
         };
 
         const changeImage = (direction) => {
@@ -179,29 +177,42 @@
             if (imgs.some(img => img.classList.contains("slide-left") || img.classList.contains("slide-right"))) return;
 
             if (direction === "left") {
+                if (window.outerWidth <= 800) {
+                    console.log("small");
+                    imgs[1].animate([{width: "32dvw", filter: "blur(5px) brightness(0.4) contrast(0.8)"}, {width: "80dvw", filter: "none"}], {duration: 400, fill: "forwards"});
+                    imgs[2].animate([{width: "80dvw", filter: "none"}, {width: "32dvw", filter: "blur(5px) brightness(0.4) contrast(0.8)"}], {duration: 400, fill: "forwards"});
+                } else {
+                    imgs[1].animate([{width: "32dvw", filter: "blur(5px) brightness(0.4) contrast(0.8)"}, {width: "44dvw", filter: "none"}], {duration: 400, fill: "forwards"});
+                    imgs[2].animate([{width: "44dvw", filter: "none"}, {width: "32dvw", filter: "blur(5px) brightness(0.4) contrast(0.8)"}], {duration: 400, fill: "forwards"});
+                }
                 imgs.forEach(img => {
                     img.classList.remove("slide-right");
                     img.classList.add("slide-left");
                 });
 
-                imgs[imgs.length - 1].addEventListener("transitionend", () => {
+                imgs[0].addEventListener("transitionend", () => {
                     imageContainer.insertBefore(imageContainer.lastElementChild, imageContainer.firstElementChild);
                     imgs.forEach(img => {
                         img.classList.remove("slide-left");
-                        img.classList.remove("scale-down");
                     });
                 }, {once: true});
             } else if (direction === "right") {
+                if (window.outerWidth <= 800) {
+                    imgs[3].animate([{width: "32dvw", filter: "blur(5px) brightness(0.4) contrast(0.8)"}, {width: "80dvw", filter: "none"}], {duration: 400, fill: "forwards"});
+                    imgs[2].animate([{width: "80dvw", filter: "none"}, {width: "32dvw", filter: "blur(5px) brightness(0.4) contrast(0.8)"}], {duration: 400, fill: "forwards"});
+                } else {
+                    imgs[3].animate([{width: "32dvw", filter: "blur(5px) brightness(0.4) contrast(0.8)"}, {width: "44dvw", filter: "none"}], {duration: 400, fill: "forwards"});
+                    imgs[2].animate([{width: "44dvw", filter: "none"}, {width: "32dvw", filter: "blur(5px) brightness(0.4) contrast(0.8)"}], {duration: 400, fill: "forwards"});
+                }
                 imgs.forEach(img => {
                     img.classList.remove("slide-left");
                     img.classList.add("slide-right");
                 });
 
-                imgs[0].addEventListener("transitionend", () => {
+                imgs[3].addEventListener("transitionend", () => {
                     imageContainer.appendChild(imageContainer.firstElementChild);
                     imgs.forEach(img => {
                         img.classList.remove("slide-right");
-                        img.classList.remove("scale-down");
                     });
                 }, {once: true});
             }
